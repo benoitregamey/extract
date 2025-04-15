@@ -10,3 +10,5 @@ extract-task-remark/target/
 extract-task-validation/target/
 .idea/
 *.iml
+.venv/
+.smarttomcat/
