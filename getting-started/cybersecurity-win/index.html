@@ -1,0 +1,1675 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://asit-asso.github.io/extract/getting-started/cybersecurity-win/">
+      
+      
+        <link rel="prev" href="../customize/">
+      
+      
+        <link rel="next" href="../cybersecurity-linux/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/extract_favicon64.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Cybersecurity risk mitigations (Windows) - Extract Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Asap:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Asap";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#security-recommendations-for-tomcat-9-deployments-windows-1011" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Extract Documentation" class="md-header__button md-logo" aria-label="Extract Documentation" data-md-component="logo">
+      
+  <img src="../../assets/asit_extract_blanc.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Extract Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cybersecurity risk mitigations (Windows)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/asit-asso/extract" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    asit-asso/extract
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Introduction
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../install/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../features/user-guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  User guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../features/admin-guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Admin guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../features/development/" class="md-tabs__link">
+          
+  
+  
+  Dev guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../how-to/extract-viageo/" class="md-tabs__link">
+          
+  
+  
+  How-To
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../misc/viageo-test/" class="md-tabs__link">
+          
+  
+  
+  Miscellaneous
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Extract Documentation" class="md-nav__button md-logo" aria-label="Extract Documentation" data-md-component="logo">
+      
+  <img src="../../assets/asit_extract_blanc.png" alt="logo">
+
+    </a>
+    Extract Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/asit-asso/extract" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    asit-asso/extract
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrate Extract in your network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customize
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cybersecurity risk mitigations (Windows)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cybersecurity risk mitigations (Windows)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#priority-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-run-tomcat-as-a-non-administrative-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Run Tomcat as a Non-Administrative User
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-set-proper-file-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Set proper file permissions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-add-tls-v12-or-v13-with-fips-validated-ciphers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Add TLS v1.2 or v1.3 with FIPS-validated ciphers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-add-http-strict-transport-security-hsts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Add HTTP Strict Transport Security (HSTS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-disable-x-powered-by-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Disable X-Powered-By Header
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-harden-cookie-security-httponly-secure-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Harden Cookie Security (HttpOnly &amp; Secure flags)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-enable-accesslogvalve-for-each-virtual-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Enable AccessLogValve for each virtual host
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-regularly-patch-tomcat-for-security-vulnerabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Regularly patch Tomcat for security vulnerabilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-use-lockoutrealm-to-prevent-brute-force-attacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Use LockOutRealm to prevent brute-force attacks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-secure-the-keystore-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Secure the keystore file
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-disable-auto-deployment-and-stack-tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Disable Auto-Deployment and Stack Tracing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-remove-unnecessary-applications-and-connectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Remove unnecessary applications and connectors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-harden-the-shutdown-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Harden the shutdown port
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Recommendations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cybersecurity-linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cybersecurity risk mitigations (Linux)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/admin-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admin guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dev guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How-To
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How-To
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/extract-viageo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connect Extract to viageo.ch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/fme-form/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using FME Form (desktop)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/fme-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using FME Flow (Server)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/qgis-server-atlas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using QGIS Server (atlas print layout)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Miscellaneous
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Miscellaneous
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/viageo-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    viageo.ch Validation Instance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../install/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="security-recommendations-for-tomcat-9-deployments-windows-1011">Security recommendations for Tomcat 9 deployments (Windows 10/11)</h1>
+<h2 id="priority-summary">Priority Summary</h2>
+<ol>
+<li>Run Tomcat as a non-administrative user and enforce strict file permissions.</li>
+<li>Add TLS 1.2/1.3 with FIPS-validated ciphers and HSTS. </li>
+<li>Harden cookie security (HttpOnly and Secure flags).</li>
+<li>Enable AccessLogValve and log client IPs behind proxies.</li>
+<li>Patch Tomcat regularly and enable LockOutRealm.</li>
+<li>Remove unnecessary applications and connectors and harden the shutdown port.</li>
+<li>Disable auto-deployment and stack tracing.</li>
+<li>Audit file changes and protect the keystore.</li>
+</ol>
+<p>The rest of this guide assumes that you installed Tomcat9 as a service (<a href="https://tomcat.apache.org/download-90.cgi">https://tomcat.apache.org/download-90.cgi</a>).</p>
+<h2 id="1-run-tomcat-as-a-non-administrative-user">1. Run Tomcat as a Non-Administrative User</h2>
+<p>Running Tomcat as a non-administrative user on Windows limits the damage that can occur if the Tomcat instance is compromised. By default, Tomcat runs as a system service on Windows. You should configure it to run under a less privileged user account.</p>
+<ul>
+<li><strong>Why it matters</strong>: Minimizes privileges and limits the damage an attacker can inflict if they gain access to Tomcat.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Create a new local user called <code>Tomcat</code> with limited privileges.</li>
+<li>Ensure that the user can <code>Log as a Service</code> (Local Security Policy &gt; Logal Policies &gt; User Rights Assignment &gt; Log on as a service)</li>
+<li>Open the <strong>Services</strong> management console (<code>services.msc</code>).</li>
+<li>Locate the <code>Apache Tomcat</code> service.</li>
+<li>Right-click on the service and select <strong>Properties</strong>.</li>
+<li>Go to the <strong>Log On</strong> tab.</li>
+<li>Select <strong>This account</strong>, then enter the <code>Tomcat</code> account credentials.</li>
+<li>Restart the service.</li>
+</ol>
+<h2 id="2-set-proper-file-permissions">2. Set proper file permissions</h2>
+<p>Proper file permissions ensure only authorized users can access or modify critical Tomcat files. On Windows, this involves setting file permissions using the Security tab in the file properties.</p>
+<ul>
+<li><strong>Why it matters</strong>: Prevents unauthorized access or modification of Tomcat’s critical configuration files and logs.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Navigate to the Tomcat installation directory (<code>%CATALINA_HOME%</code>), typically <code>C:\Program Files\Apache Software Foundation\Tomcat 9.0</code>.</li>
+<li>Right-click on the conf, bin, logs, webapps, and temp folders and select Properties.</li>
+<li>Go to the Security tab and assign the following permissions:</li>
+<li>TomcatUser: Full Control for logs, temp, work, and webapps. </li>
+<li>Administrators: Full Control for conf and bin. </li>
+<li>Others: Read and execute only.</li>
+</ol>
+<h2 id="3-add-tls-v12-or-v13-with-fips-validated-ciphers">3. Add TLS v1.2 or v1.3 with FIPS-validated ciphers</h2>
+<p>TLS (Transport Layer Security) is essential for encrypting data transmitted between clients and servers. By enforcing TLS 1.2 or 1.3 with strong, FIPS-validated ciphers, you ensure secure communication that meets strict compliance standards.</p>
+<ol>
+<li>Open the <code>server.xml</code> file located in <code>%CATALINA_HOME%\conf\server.xml</code>.</li>
+<li>Add or modify the SSL connector:
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Connector</span><span class="w"> </span><span class="na">port=</span><span class="s">&quot;8443&quot;</span><span class="w"> </span><span class="na">protocol=</span><span class="s">&quot;org.apache.coyote.http11.Http11NioProtocol&quot;</span>
+<span class="w">           </span><span class="na">maxThreads=</span><span class="s">&quot;150&quot;</span><span class="w"> </span><span class="na">SSLEnabled=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">   </span><span class="nt">&lt;SSLHostConfig&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Protocols&gt;</span>
+<span class="w">         </span><span class="nt">&lt;TLSv1.2</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">         </span><span class="nt">&lt;TLSv1.3</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/Protocols&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Cipher&gt;</span>TLS_AES_128_GCM_SHA256,<span class="w"> </span>TLS_AES_256_GCM_SHA384,<span class="w"> </span>TLS_CHACHA20_POLY1305_SHA256<span class="nt">&lt;/Cipher&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Certificate</span><span class="w"> </span><span class="na">certificateKeyFile=</span><span class="s">&quot;conf/server.key&quot;</span>
+<span class="w">                   </span><span class="na">certificateFile=</span><span class="s">&quot;conf/server.crt&quot;</span>
+<span class="w">                   </span><span class="na">certificateChainFile=</span><span class="s">&quot;conf/chain.crt&quot;</span>
+<span class="w">                   </span><span class="na">type=</span><span class="s">&quot;RSA&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">   </span><span class="nt">&lt;/SSLHostConfig&gt;</span>
+<span class="nt">&lt;/Connector&gt;</span>
+</code></pre></div></li>
+<li>Restart the service</li>
+</ol>
+<h2 id="4-add-http-strict-transport-security-hsts">4. Add HTTP Strict Transport Security (HSTS)</h2>
+<p>HSTS instructs browsers to only interact with your server using HTTPS. It prevents downgrade attacks where an attacker could force a user to connect via HTTP. Once a browser receives the HSTS header, it will automatically convert all future requests to HTTPS, ensuring secure communication.</p>
+<ul>
+<li><strong>Why it matters</strong>: Protects against protocol downgrade attacks and ensures that all communications use HTTPS.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Open the <code>web.xml</code> file in <code>%CATALINA_HOME%\conf\web.xml</code>.</li>
+<li>Change the filter values :</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;filter&gt;</span>
+<span class="w">    </span><span class="nt">&lt;filter-name&gt;</span>HSTSFilter<span class="nt">&lt;/filter-name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;filter-class&gt;</span>org.apache.catalina.filters.HttpHeaderSecurityFilter<span class="nt">&lt;/filter-class&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&lt;init-param&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&lt;param-name&gt;</span>hstsEnabled<span class="nt">&lt;/param-name&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param-value&gt;</span>true<span class="nt">&lt;/param-value&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/init-param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;init-param&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&lt;param-name&gt;</span>hstsMaxAgeSeconds<span class="nt">&lt;/param-name&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">&lt;param-value&gt;</span>31536000<span class="nt">&lt;/param-value&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&lt;/init-param&gt;</span><span class="w"> </span>
+<span class="nt">&lt;/filter&gt;</span><span class="w"> </span>
+<span class="nt">&lt;filter-mapping&gt;</span>
+<span class="w">    </span><span class="nt">&lt;filter-name&gt;</span>HSTSFilter<span class="nt">&lt;/filter-name&gt;</span>
+<span class="w">    </span><span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+</code></pre></div>
+<p>Restart the <code>Tomcat</code> service</p>
+<h2 id="5-disable-x-powered-by-header">5. Disable X-Powered-By Header</h2>
+<p>By default, Tomcat may expose the <code>X-Powered-By</code> header, which discloses information about the server and its version. Disabling this prevents attackers from easily identifying the version of Tomcat being used, reducing the risk of targeted attacks based on known vulnerabilities.</p>
+<ul>
+<li><strong>Why it matters</strong>: Hides unnecessary information from potential attackers and reduces the risk of exploit-based attacks.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Open the <code>server.xml</code> file in <code>%CATALINA_HOME%\conf\server.xml</code>.</li>
+<li>Change file permissions:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Valve</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;org.apache.catalina.valves.ErrorReportValve&quot;</span><span class="w"> </span><span class="na">showReport=</span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="na">showServerInfo=</span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</code></pre></div>
+<p>And restart the <code>Tomcat</code> service.</p>
+<h2 id="6-harden-cookie-security-httponly-secure-flags">6. Harden Cookie Security (HttpOnly &amp; Secure flags)</h2>
+<ul>
+<li><strong>HttpOnly flag</strong>: Ensures that cookies cannot be accessed via JavaScript, protecting them from cross-site scripting (XSS) attacks.</li>
+<li><strong>Secure flag</strong>: Ensures that cookies are only transmitted over HTTPS, preventing them from being exposed during plaintext transmission.</li>
+<li><strong>Why it matters</strong>: Protects session cookies from being stolen or accessed by malicious scripts.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Open <code>web.xml</code> in <code>%CATALINA_HOME%\conf\web.xml</code>.</li>
+<li>Set the cookie properties:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;session-config&gt;</span>
+<span class="w">    </span><span class="nt">&lt;cookie-config&gt;</span>
+<span class="w">        </span><span class="nt">&lt;http-only&gt;</span>true<span class="nt">&lt;/http-only&gt;</span>
+<span class="w">        </span><span class="nt">&lt;secure&gt;</span>true<span class="nt">&lt;/secure&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/cookie-config&gt;</span>
+<span class="nt">&lt;/session-config&gt;</span>
+</code></pre></div>
+<h2 id="7-enable-accesslogvalve-for-each-virtual-host">7. Enable AccessLogValve for each virtual host</h2>
+<p>Configuring <strong>AccessLogValve</strong> for each virtual host in Tomcat allows you to log incoming requests for auditing and troubleshooting purposes. These logs provide valuable insights into who is accessing the server and can help detect potential malicious activity.</p>
+<ul>
+<li><strong>Why it matters</strong>: Provides detailed logs for auditing, forensics, and detecting suspicious activity.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Open <code>server.xml</code> in <code>%CATALINA_HOME%\conf\server.xml</code>.</li>
+<li>Change file permissions:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Host</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="na">appBase=</span><span class="s">&quot;webapps&quot;</span><span class="w"> </span><span class="na">unpackWARs=</span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="na">autoDeploy=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;Valve</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;org.apache.catalina.valves.AccessLogValve&quot;</span><span class="w"> </span><span class="na">directory=</span><span class="s">&quot;logs&quot;</span>
+<span class="na">prefix=</span><span class="s">&quot;localhost_access_log&quot;</span><span class="w"> </span><span class="na">suffix=</span><span class="s">&quot;.txt&quot;</span>
+<span class="na">pattern=</span><span class="s">&quot;%h %l %u %t &amp;quot;%r&amp;quot; %s %b&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Host&gt;</span>
+</code></pre></div>
+<h2 id="8-regularly-patch-tomcat-for-security-vulnerabilities">8. Regularly patch Tomcat for security vulnerabilities</h2>
+<p>Tomcat, like any other software, can have security vulnerabilities. Regularly applying patches and updates ensures that your installation is protected against known threats. It’s crucial to stay up to date with the latest security patches to mitigate risks.</p>
+<ul>
+<li><strong>Why it matters</strong>: Fixes known vulnerabilities and prevents attackers from exploiting outdated software.</li>
+</ul>
+<h2 id="9-use-lockoutrealm-to-prevent-brute-force-attacks">9. Use LockOutRealm to prevent brute-force attacks</h2>
+<p>The <strong>LockOutRealm</strong> helps prevent brute-force login attacks by locking out users after a set number of failed login attempts. Configuring this for admin accounts is particularly important.</p>
+<ul>
+<li><strong>Why it matters</strong>: Prevents attackers from brute-forcing admin credentials.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Open <code>server.xml</code> in <code>%CATALINA_HOME%\conf\server.xml</code>.</li>
+<li>Add <code>failureCount</code> et <code>lockOutTime</code>:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><span class="nt">&lt;Realm</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;org.apache.catalina.realm.LockOutRealm&quot;</span><span class="w"> </span><span class="na">failureCount=</span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="na">lockOutTime=</span><span class="s">&quot;600&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Realm</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;org.apache.catalina.realm.UserDatabaseRealm&quot;</span>
+<span class="w">         </span><span class="na">resourceName=</span><span class="s">&quot;UserDatabase&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Realm&gt;</span>
+</code></pre></div>
+3. Restart the <code>Tomcat</code> service</p>
+<h2 id="10-secure-the-keystore-file">10. Secure the keystore file</h2>
+<p>The keystore contains sensitive information, such as private keys used for SSL/TLS. Ensuring that the keystore file is properly protected by strict file permissions and password protection prevents unauthorized access to critical security credentials.</p>
+<ul>
+<li><strong>Why it matters</strong>: Protects sensitive private keys from unauthorized access or tampering.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Right-click on the keystore file and select <strong>Properties</strong>.</li>
+<li>Go to the <strong>Security</strong> tab.</li>
+<li>Ensure only the <code>Tomcat</code> user has access, and set the permissions to <strong>Read</strong> and <strong>Execute</strong>.</li>
+</ol>
+<h2 id="11-disable-auto-deployment-and-stack-tracing">11. Disable Auto-Deployment and Stack Tracing</h2>
+<p>Auto-deployment introduces security risks by allowing new applications to be deployed without manual intervention. Disabling stack traces prevents attackers from seeing sensitive system information.</p>
+<ul>
+<li><strong>Why it matters</strong>: Prevents unauthorized deployments and hides sensitive details during errors.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Open <code>server.xml</code> in <code>%CATALINA_HOME%\conf\server.xml</code>.</li>
+<li>Modify the <code>&lt;Host&gt;</code> block and add the auditing rules:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><span class="nt">&lt;Host</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;localhost&quot;</span><span class="w"> </span><span class="na">appBase=</span><span class="s">&quot;webapps&quot;</span><span class="w"> </span><span class="na">unpackWARs=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="na">autoDeploy=</span><span class="s">&quot;false&quot;</span><span class="w"> </span><span class="na">deployOnStartup=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+3. To disable stack traces, open <code>web.xml</code> in <code>%CATALINA_HOME%\conf\web.xml</code> and add:
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;error-page&gt;</span>
+<span class="w">   </span><span class="nt">&lt;exception-type&gt;</span>java.lang.Throwable<span class="nt">&lt;/exception-type&gt;</span>
+<span class="w">   </span><span class="nt">&lt;location&gt;</span>/error.jsp<span class="nt">&lt;/location&gt;</span>
+<span class="nt">&lt;/error-page&gt;</span>
+</code></pre></div></p>
+<h2 id="12-remove-unnecessary-applications-and-connectors">12. Remove unnecessary applications and connectors</h2>
+<ul>
+<li><strong>Remove folders</strong>: Unused folders such as <code>documentation</code>, <code>examples</code>, <code>manager</code>, and <code>host-manager</code> should be deleted from the production environment to minimize the attack surface.</li>
+<li><strong>Remove unused connectors</strong>: Disable and remove any unused connectors (e.g., HTTP connector) to reduce exposure to attacks.</li>
+<li><strong>Why it matters</strong>: Minimizes the attack surface and reduces potential entry points for attackers.</li>
+<li><strong>Disable unused connectors</strong> in <code>server.xml</code></li>
+</ul>
+<h2 id="13-harden-the-shutdown-port">13. Harden the shutdown port</h2>
+<p>The shutdown port allows Tomcat to be stopped remotely. Disabling this port or restricting access ensures that attackers cannot shut down your server unexpectedly.</p>
+<ul>
+<li><strong>Why it matters</strong>: Prevents unauthorised shutdown of Tomcat, ensuring continuous availability.</li>
+</ul>
+<p><strong>How-to</strong></p>
+<ol>
+<li>Open <code>server.xml</code> in <code>%CATALINA_HOME%\conf\server.xml</code>.</li>
+<li>Set the shutdown port to <code>-1</code> to disable it:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><span class="nt">&lt;Server</span><span class="w"> </span><span class="na">port=</span><span class="s">&quot;-1&quot;</span><span class="w"> </span><span class="na">shutdown=</span><span class="s">&quot;SHUTDOWN&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/Server&gt;</span>
+</code></pre></div>
+You can also set the port to <code>-1</code> during the installation of the service.</p>
+<hr />
+<h2 id="additional-recommendations">Additional Recommendations</h2>
+<ol>
+<li><strong>Replace the ROOT web application</strong>: It is a best practice to replace the default Tomcat ROOT web application with a custom one or remove it if not needed. The default ROOT application can expose unnecessary information.</li>
+<li><strong>Use a Java Security Manager</strong>: The Java Security Manager enforces restrictions on the permissions of Java code running within Tomcat. Enabling it adds an additional layer of security by limiting what code can do.</li>
+<li><strong>Set <code>failureCount</code> to 5 failed login attempts</strong> for admin accounts: This limits the number of attempts to brute-force credentials, protecting admin accounts from attacks.</li>
+</ol>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://www.stigviewer.com/stig/apache_tomcat_application_server_9/">https://www.stigviewer.com/stig/apache_tomcat_application_server_9/</a></li>
+<li><a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar2.pdf">https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar2.pdf</a></li>
+<li><a href="https://tomcat.apache.org/tomcat-9.0-doc/security-howto.html">https://tomcat.apache.org/tomcat-9.0-doc/security-howto.html</a></li>
+<li><a href="https://www.openlogic.com/blog/apache-tomcat-security-best-practices">https://www.openlogic.com/blog/apache-tomcat-security-best-practices</a></li>
+<li><a href="https://knowledge.broadcom.com/external/article/226769/enable-http-strict-transport-security-hs.html">https://knowledge.broadcom.com/external/article/226769/enable-http-strict-transport-security-hs.html</a></li>
+</ul>
+<p><br>
+<br>
+<br>
+<br>
+<br></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "search.suggest", "toc.integrate", "navigation.path", "content.code.copy"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

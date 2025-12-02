@@ -1,0 +1,1864 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://asit-asso.github.io/extract/features/admin-guide/">
+      
+      
+        <link rel="prev" href="../user-guide/">
+      
+      
+        <link rel="next" href="../development/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/extract_favicon64.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Admin guide - Extract Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Asap:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Asap";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#user-administration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Extract Documentation" class="md-header__button md-logo" aria-label="Extract Documentation" data-md-component="logo">
+      
+  <img src="../../assets/asit_extract_blanc.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Extract Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Admin guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/asit-asso/extract" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    asit-asso/extract
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Introduction
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/install/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../user-guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  User guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Admin guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../development/" class="md-tabs__link">
+          
+  
+  
+  Dev guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../how-to/extract-viageo/" class="md-tabs__link">
+          
+  
+  
+  How-To
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../misc/viageo-test/" class="md-tabs__link">
+          
+  
+  
+  Miscellaneous
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Extract Documentation" class="md-nav__button md-logo" aria-label="Extract Documentation" data-md-component="logo">
+      
+  <img src="../../assets/asit_extract_blanc.png" alt="logo">
+
+    </a>
+    Extract Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/asit-asso/extract" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    asit-asso/extract
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/configure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/network-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrate Extract in your network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/customize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customize
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/cybersecurity-win/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cybersecurity risk mitigations (Windows)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/cybersecurity-linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cybersecurity risk mitigations (Linux)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admin guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admin guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user-administration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User administration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User administration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#users-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Users list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#users-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Users groups
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Users groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groups-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groups list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#groups-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groups settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processes list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connectors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connectors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connectors-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connectors list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connector-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connector details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connector details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connector-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connector parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connector-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connector rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application settings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Application settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operating-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operating hours
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smtp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SMTP server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LDAP authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronization-with-ldap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronization with LDAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap-connection-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP connection test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validation-comment-templates-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation comment templates list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-comment-template-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation comment template details
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous information
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dev guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How-To
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How-To
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/extract-viageo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connect Extract to viageo.ch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/fme-form/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using FME Form (desktop)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/fme-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using FME Flow (Server)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/qgis-server-atlas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using QGIS Server (atlas print layout)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Miscellaneous
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Miscellaneous
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/viageo-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    viageo.ch Validation Instance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Admin guide</h1>
+
+<h2 id="user-administration">User administration</h2>
+<h3 id="users-list">Users list</h3>
+<p><img alt="Users list" src="../../assets/admin-guide/users-list.png" width="1000" /></p>
+<p>This page lists all users, whether active or inactive. You can:</p>
+<ul>
+<li><strong>create a new user</strong> by clicking on the <code>Nouvel utilisateur</code> button</li>
+<li><strong>manage user groups</strong> by clicking on the <code>Groupes</code> button</li>
+<li><strong>edit a user</strong> by clicking on their login</li>
+<li><strong>delete a user</strong> by clicking on the red button with a cross. It is not possible to delete (grayey out button):<ul>
+<li>Your own account</li>
+<li>A user directly associated with a process</li>
+<li>The last active user of a group associated with a process</li>
+</ul>
+</li>
+</ul>
+<p>It includes a filtering feature based on the following criteria:</p>
+<ul>
+<li>
+<p>Text search (partial and case insensitive) in the following fields:</p>
+<ul>
+<li>Login</li>
+<li>Name</li>
+<li>Email address</li>
+</ul>
+</li>
+<li>
+<p>User's role</p>
+</li>
+<li>User's state</li>
+<li>User's notifications status</li>
+<li>User's 2FA status</li>
+</ul>
+<p>The search is executed only when you click the green <strong>search button</strong> (magnifying glass icon). Alternatively, you can start the search by pressing <strong>Enter</strong> while focused on a search field.</p>
+<h3 id="user-settings">User settings</h3>
+<p><img alt="Users settings" src="../../assets/admin-guide/users-settings.png" width="1000" /></p>
+<p>User's settings are:</p>
+<ul>
+<li>User's full name (for display purposes)</li>
+<li>User's role in the application (operator or administrator). It is not possible to change the role of your own account</li>
+<li>The username they use to log in (must be unique within the application)</li>
+<li>Whether the user is active. An inactive user cannot log in to the application. It is not possible to deactivate the account of a user associated with a process.</li>
+<li>The email address to which notifications concerning them will be sent</li>
+<li>Whether email notifications are enabled. Only operator-type notifications are affected. Even if notifications are deactivated, the user will continue to receive emails allowing them to reset their password. All notifications for administrators are not affected by this setting.</li>
+<li>The password they use to log in. If the password is changed, it must follow the password policy.</li>
+<li>Whether two-factor authentication should be required for the user. In this case, the user will have to register with Google Authenticator (or compatible) the next time they log in, without the option to cancel the registration. If you choose not to require two-factor authentication, the user can still choose to enable it.</li>
+<li>User language preference (if Extract is in multilingual mode)</li>
+</ul>
+<p><br>
+Using the buttons at the top of the page, administrators can:</p>
+<ul>
+<li>Manage the status of two-factor authentication for the user, i.e. enable it, disable it, or ask the user to register again with a new code. This is a drop-down button that displays a menu when clicked, showing the actions available depending on the user's status</li>
+<li>In the case of a local user and if LDAP is enabled, the administrator can choose to migrate the user to an LDAP user. The password to be used then becomes the one defined in the company directory. <strong>Warning</strong>: this operation cannot be reversed.</li>
+</ul>
+<p><br>
+These operations will result in the loss of any other changes currently in progress.</p>
+<p>If the user is an LDAP user, the only changes available in Extract are:</p>
+<ul>
+<li>Email notifications status</li>
+<li>Two-factor authentication status (including the option to enforce it or not)</li>
+<li>User language preference (if Extract is in multilingual mode)</li>
+</ul>
+<h3 id="users-groups">Users groups</h3>
+<p>User groups allow operators to be grouped together to be assigned to a process as a group. Group settings are accessed from the user list.</p>
+<h4 id="groups-list">Groups list</h4>
+<p><img alt="Users groups list" src="../../assets/admin-guide/users-groups-list.png" width="1000" /></p>
+<p>This page lists all users groups with their number of users (active or inactive). Following actions are possible:</p>
+<ul>
+<li><strong>Create a new group</strong> by clicking on the <code>Nouveau groupe</code> button </li>
+<li><strong>Edit a group</strong> by clicking on its name</li>
+<li><strong>Delete a group</strong> by clicking on the red button with a cross. It is not possible to delete a group associated with a process (grayed out button)</li>
+</ul>
+<h4 id="groups-settings">Groups settings</h4>
+<p><img alt="Users groups settings" src="../../assets/admin-guide/users-groups-settings.png" width="1000" /></p>
+<p>Group settings are:</p>
+<ul>
+<li>Group name (mandatory and unique)</li>
+<li>The list of users it contains. A user can belong to several groups. For groups associated with a process users can be added or removed, but there must always be at least one active user remaining.</li>
+</ul>
+<h2 id="processes">Processes</h2>
+<p>A process is a sequence of tasks that generates the data requested by a client.</p>
+<h3 id="processes-list">Processes list</h3>
+<p><img alt="Processes list" src="../../assets/admin-guide/processes-list.png" width="1000" /></p>
+<p>This page lists all processes whether or not they are associated with a rule. Following actions are available:</p>
+<ul>
+<li><strong>Create a process</strong> by clicking on the <code>Nouveau traitement</code> button</li>
+<li><strong>Edit a process</strong> by clicking on its name</li>
+<li><strong>Duplicate a process</strong> by clicking on the green button with a copy icon. An identical copy of the process will be created, including its tasks and settings.</li>
+<li><strong>Delete a process</strong> by clicking on the red button with a cross. Processes associated with a request that is not completed or associated with a connector's rule cannot be deleted (grayed out button).</li>
+</ul>
+<p>It includes a filtering feature based on the name of the process. The search is executed only when you click the green <strong>search button</strong> (magnifying glass icon). Alternatively, you can start the search by pressing <strong>Enter</strong> while focused on the search field.</p>
+<h3 id="process-details">Process details</h3>
+<h4 id="process-parameters">Process parameters</h4>
+<p><img alt="Processes parameters" src="../../assets/admin-guide/processes-parameters.png" width="1000" /></p>
+<p>At the top of the page, the following are defined:</p>
+<ul>
+<li>The name to be given to the process in the application</li>
+<li>The users or user groups authorized to interact with requests associated with this process. At least one operator or user group must be specified. Administrators can interact with all requests.</li>
+</ul>
+<h4 id="process-tasks">Process tasks</h4>
+<p><img alt="Processes tasks" src="../../assets/admin-guide/processes-tasks.png" width="600" /></p>
+<p>The tasks currently configured for the process are displayed in the order in which they will be executed. You can change the order of the tasks by dragging and dropping the task. Each task can be deleted by clicking on the red button with a cross.</p>
+<p>Depending on the task type, the following items may be displayed:  </p>
+<ul>
+<li>Configuration parameters  </li>
+<li>A button to display help text</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is strongly recommended not to delete or reorder tasks in a process that has running requests. Result may be unpredictable. However, it is always possible to modify the parameters.</p>
+</div>
+<h4 id="available-tasks">Available tasks</h4>
+<p><img alt="Tasks list" src="../../assets/admin-guide/tasks-list.png" width="350" /></p>
+<p>On the right side of the screen is a list of available task with a brief description. To add a task to the process, drag and drop one of these items to the area on the left. If necessary, you can add the same task several times.</p>
+<h2 id="connectors">Connectors</h2>
+<p>Connectors allow you to retrieve requests from a server and send the results back to it.</p>
+<h3 id="connectors-list">Connectors list</h3>
+<p><img alt="Connectors list" src="../../assets/admin-guide/connectors-list.png" width="1000" /></p>
+<p>This page lists all defined connectors, whether active or not. Following actions are available:</p>
+<ul>
+<li><strong>Create</strong> a new connector by clicking the <code>Nouveau connecteur</code> button, then choosing a server type from the drop-down list</li>
+<li><strong>Edit</strong> a connector by clicking on its name</li>
+<li><strong>Delete</strong> a connector by clicking the red button with the cross. It is not possible to delete a connector with running requests (grayed out button).</li>
+</ul>
+<p>It includes a filtering feature based on the name of the process and the connector's type. The search is executed only when you click the green <strong>search button</strong> (magnifying glass icon). Alternatively, you can start the search by pressing <strong>Enter</strong> while focused on the search field.</p>
+<h3 id="connector-details">Connector details</h3>
+<h4 id="connector-parameters">Connector parameters</h4>
+<p><img alt="Connectors parameters" src="../../assets/admin-guide/connectors-parameters.png" width="1000" /></p>
+<p>Generic parameters for all server types are as follows:</p>
+<ul>
+<li>The name to give to the connector in the application</li>
+<li>The number of seconds between two attempts to retrieve requests</li>
+<li>The number of retries to perform in case of an import problem before setting the connector to error</li>
+<li>Whether or not to activate the connector. This setting only applies to imports. The result can be exported even when the connector is deactivated.</li>
+<li>The type of connector to use (non-editable)</li>
+</ul>
+<p>In addition, each type of connector can define specific parameters. For easySDI v4 connector, these are:  </p>
+<ul>
+<li>The service address used to retrieve requests and return their results</li>
+<li>The username and password to connect to the service</li>
+<li>The maximum file size to be exported as a result of the request. Leave this parameter blank for no size limit</li>
+<li>
+<p>The URL template for viewing the details of a request on the origin server. This parameter can be left blank, in which case the view link will not be displayed on the request details page. </p>
+<p>The following variables can be specified between curly brackets. They will be replaced with the properties of the relevant request.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>client</code></td>
+<td>Client name who placed the order</td>
+</tr>
+<tr>
+<td><code>orderGuid</code></td>
+<td>The GUID that identifies the order</td>
+</tr>
+<tr>
+<td><code>orderLabel</code></td>
+<td>The order number</td>
+</tr>
+<tr>
+<td><code>organism</code></td>
+<td>The organization of the client who placed the order</td>
+</tr>
+<tr>
+<td><code>productGuid</code></td>
+<td>The GUID that identifies the product ordered</td>
+</tr>
+<tr>
+<td><code>productLabel</code></td>
+<td>The name of the product ordered</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h4 id="connector-rules">Connector rules</h4>
+<p><img alt="Connectors rules" src="../../assets/admin-guide/connectors-rules.png" width="1000" /></p>
+<p>Rules allow you to assign a process to a request. Rules are executed from top to bottom. The first active rule whose conditions are met triggers the assigned process, following rules are ignored. Therefore, it's best to place most specific requests first. If no rule matches the request, administrators are notified by email.</p>
+<p>You can create a new rule by clicking on the <code>Ajouter une règle</code> button and delete one by clicking on the red button with a cross. You can also change the rules order by dragging and dropping them.</p>
+<p>Following rule parameters are available:</p>
+<ul>
+<li>The code defining the rules that link a request to its processing. For details on the required syntax, click the help button in the column header.</li>
+<li>The process to be associated with the request if the rule matches</li>
+<li>Whether the rule is active (inactive rules are ignored)</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The code defining the rules is limited to 65'000 characters by default. It's possible to remove this limitation by changing the type of the rule field in the database (see <a href="../../getting-started/configure#rule-field-size-limitation-matching-processes">Rule field size limitation</a>)</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Rule management is not available when creating a connector. You must first save it, then edit it.</p>
+</div>
+<h2 id="application-settings">Application settings</h2>
+<h3 id="orchestration">Orchestration</h3>
+<p><img alt="Orchestration" src="../../assets/admin-guide/orchestration.png" width="500" /></p>
+<ul>
+<li><strong>Storage path</strong> : Defines the directory where files generated during request processing are stored. Tomcat user must have both read and write permissions for this directory. Data related to a request are automatically deleted once the request is successfully exported.</li>
+<li><strong>Show temporary file location to operators</strong> : When enabled, the system displays the path of the temporary processing directory on the request details page.</li>
+<li><strong>Orchestrator update frequency</strong> : Specifies the interval (in seconds) between executions of background tasks, such as: request processing, rule matching, data export. Notes :<ul>
+<li>A lower value makes tasks more responsive but increases server resource usage.</li>
+<li>It also represents the maximum delay before connector setting changes take effect.</li>
+<li>This setting does not affect request imports frequency, which are controlled in each connector’s properties (see <a href="#connector-parameters">Connector parameters</a>).</li>
+</ul>
+</li>
+<li><strong>Request list update frequency</strong> : Defines how often (in seconds) the home page data is refreshed (see <a href="../user-guide#requests-list">Requests list</a>)</li>
+<li><strong>Interval between validation reminders</strong> : Specifies the number of days between two email reminders sent to operators when a request is still pending validation. Set this value to 0 to disable reminders.</li>
+</ul>
+<h3 id="operating-hours">Operating hours</h3>
+<p><img alt="Operating hours" src="../../assets/admin-guide/operating-hours.png" width="500" /></p>
+<p>This section lets you define the time windows during which Extract automatically runs its tasks (import, processing, export, etc.) Regardless of the selected operating mode, you can always log in to the application to perform manual actions such as: Validating requests, modifying processed files, updating application settings, resetting passwords, etc.</p>
+<p>You can define operating time slots by clicking on the <code>Ajouter une plage</code> button. The days and times indicated are included in the time slot. If several time slots are defined, automatic tasks will run whenever at least one slot covers the current day and time. You can also delete a time slot by clicking the red Delete button next to it.</p>
+<p>Time slots can be defined at any time, but they are only applied if the operating mode <code>Seulement durant les heures ci-dessous</code> is selected. If this mode is chosen but no slot is defined, the system behaves the same as in <code>Arrêt complet</code> mode.</p>
+<h3 id="smtp-server">SMTP server</h3>
+<p><img alt="SMTP servers" src="../../assets/admin-guide/smtp-server.png" width="500" /></p>
+<p>This section covers the configuration of server settings for email notifications.</p>
+<ul>
+<li><strong>SMTP User</strong>: Used to authenticate with the SMTP server.</li>
+<li><strong>Sender Details</strong>: You can specify both the sender’s name and email address. Depending on the server’s policy, these may differ.</li>
+</ul>
+<h3 id="ldap-authentication">LDAP authentication</h3>
+<p><img alt="LDAP authentication" src="../../assets/admin-guide/ldap-authentication.png" width="500" /></p>
+<p>This section lets you enable and configure LDAP login using your corporate directory. You can specify:</p>
+<ul>
+<li><strong>LDAP servers</strong>: Enter the server name(s) and port(s) (optional). If multiple servers are used, separate them with semicolons.</li>
+<li><strong>Encryption type</strong>: Choose the security protocol for connections.</li>
+<li><strong>Domain or base DNs</strong>: For Active Directory, enter the domain. For other LDAP servers, provide one or more base DNs (separated by semicolons).</li>
+<li><strong>Group DN</strong>: Define the DN of the group whose members will be assigned roles in Extract.<ul>
+<li>Members of the operator group will be assigned the Operator role.</li>
+<li>Members of the administrator group will be assigned the Administrator role.</li>
+<li>If a user belongs to both groups, they will be considered an Administrator.</li>
+</ul>
+</li>
+</ul>
+<h4 id="synchronization-with-ldap">Synchronization with LDAP</h4>
+<p>Extract can automatically run a task to keep LDAP users and their attributes up to date. To enable synchronization, you’ll need to provide the username and password of an LDAP account with read permissions and the synchronization interval (in hours).</p>
+<p>During each synchronization, Extract will:</p>
+<ul>
+<li><strong>Deactivate</strong> users who are no longer present in the directory or who have been disabled (in the case of Active Directory)</li>
+<li><strong>Update</strong> existing LDAP users’ email addresses, full names, and roles if they have changed</li>
+<li><strong>Create</strong> new Extract accounts for users who belong to an LDAP administrator or operator group but do not yet exist in Extract</li>
+</ul>
+<p>You can start synchronization immediately (in the background) by clicking the <code>Synchroniser maintenant</code> button. Otherwise, synchronization is performed using the settings saved in the database. Please save your settings beforehand if you have modified them.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>If a user is disabled or deleted in the LDAP directory, they will no longer be able to connect to Extract, even if synchronization has not been performed.</p>
+</div>
+<h4 id="ldap-connection-test">LDAP connection test</h4>
+<p>The <code>Tester la connexion</code> button lets you verify whether the current settings can successfully establish a connection. The test runs with the values you’ve entered, even if they haven’t been saved yet.</p>
+<ul>
+<li>If synchronization is enabled, the test uses the provided username and password.</li>
+<li>If synchronization is disabled, the test runs anonymously.</li>
+</ul>
+<h3 id="request-validation">Request validation</h3>
+<p><img alt="Validation" src="../../assets/admin-guide/validation.png" width="500" /></p>
+<p>This section lets you specify which request properties should be highlighted for operators in the request validation area (see <a href="../user-guide#validation">Validation in the user guide</a>). No syntax checks is applied to the properties entered here — only properties that actually exists in the request will be considered.</p>
+<p>Additionally, this section provides access (by clicking on the <code>Gérer les modèles</code> button) to the management of predefined comment templates used during request validation steps.</p>
+<h4 id="validation-comment-templates-list">Validation comment templates list</h4>
+<p><img alt="Validation tempalates list" src="../../assets/admin-guide/validation-templates-list.png" width="1000" /></p>
+<p>This page lists all existing message templates. Following action are available:</p>
+<ul>
+<li><strong>Create a new validation message</strong> by clicking on the <code>Nouveau message</code> button</li>
+<li><strong>Edit a message</strong> by clicking on its title</li>
+<li><strong>Delete a message</strong> by clicking on the red button with a cross. It is not possible to delete a message associated with a validation task of a process (grayed out button).</li>
+</ul>
+<h4 id="validation-comment-template-details">Validation comment template details</h4>
+<p><img alt="Validation tempalate details" src="../../assets/admin-guide/validation-template-details.png" width="1000" /></p>
+<p>Message parameters are:</p>
+<ul>
+<li>Its title (for display in the validation plugin settings and in the list of comments available during validation)</li>
+<li>Message text. The strings <code>[operatorName]</code> and <code>[operatorEmail]</code> will be replaced by the name and email address of the operator who validated the process.</li>
+</ul>
+<h3 id="miscellaneous-information">Miscellaneous information</h3>
+<p><img alt="Misc" src="../../assets/admin-guide/misc.png" width="500" /></p>
+<p>This section provides general information about Extract, including the application version installed.</p>
+<p><br>
+<br>
+<br>
+<br>
+<br></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "search.suggest", "toc.integrate", "navigation.path", "content.code.copy"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

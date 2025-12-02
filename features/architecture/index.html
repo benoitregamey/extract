@@ -1,0 +1,3564 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://asit-asso.github.io/extract/features/architecture/">
+      
+      
+        <link rel="prev" href="../development/">
+      
+      
+        <link rel="next" href="../../how-to/extract-viageo/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/extract_favicon64.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Application architecture - Extract Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Asap:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Asap";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#application-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Extract Documentation" class="md-header__button md-logo" aria-label="Extract Documentation" data-md-component="logo">
+      
+  <img src="../../assets/asit_extract_blanc.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Extract Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Application architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/asit-asso/extract" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    asit-asso/extract
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Introduction
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/install/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../user-guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  User guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../admin-guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Admin guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../development/" class="md-tabs__link">
+          
+  
+  
+  Dev guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../how-to/extract-viageo/" class="md-tabs__link">
+          
+  
+  
+  How-To
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../misc/viageo-test/" class="md-tabs__link">
+          
+  
+  
+  Miscellaneous
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Extract Documentation" class="md-nav__button md-logo" aria-label="Extract Documentation" data-md-component="logo">
+      
+  <img src="../../assets/asit_extract_blanc.png" alt="logo">
+
+    </a>
+    Extract Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/asit-asso/extract" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    asit-asso/extract
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/configure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/network-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrate Extract in your network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/customize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customize
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/cybersecurity-win/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cybersecurity risk mitigations (Windows)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/cybersecurity-linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cybersecurity risk mitigations (Linux)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admin guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dev guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#foreword" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foreword
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-logic-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic logic diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-architecture-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Software architecture diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flows-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flows description
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptual-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptual data model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-tables-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data tables description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data tables description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CONNECTORS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RULES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PROCESSES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TASKS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processes_users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PROCESSES_USERS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processes_usergroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PROCESSES_USERGROUPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USERS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery_codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RECOVERY_CODES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remember_me_tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REMEMBER_ME_TOKENS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REQUESTS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REQUEST_HISTORY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYSTEM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REMARKS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usergroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USERGROUPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#users_usergroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USERS_USERGROUPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deletion-of-database-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deletion of database elements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description-of-interfaces-and-third-party-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description of interfaces and third-party systems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Description of interfaces and third-party systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connector-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connector catalog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connector catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#easy-sdi-v4-connector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Easy SDI v4 connector
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-plugin-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Plugin Catalog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task Plugin Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-archiving-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Archiving Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fme-2016-extraction-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FME 2016 Extraction Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fme-server-extraction-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FME Server Extraction Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-remark-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed remark plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-validation-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator validation plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancelation-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cancelation Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mail-notification-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mail notification plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qgis-server-atlas-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QGIS Server Atlas Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#techincal-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Techincal details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Techincal details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rules-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rules Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-authenticator-2fa-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Google Authenticator 2FA operation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Authenticator 2FA operation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2fa-specific-connection-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2FA-specific connection flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2fa-parameters-modification-for-your-own-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2FA parameters modification (for your own account)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2fa-parameters-modification-of-a-user-by-an-administrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2FA parameters modification (of a user by an administrator)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP synchronization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How-To
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How-To
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/extract-viageo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connect Extract to viageo.ch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/fme-form/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using FME Form (desktop)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/fme-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using FME Flow (Server)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/qgis-server-atlas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set up an extraction using QGIS Server (atlas print layout)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Miscellaneous
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Miscellaneous
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/viageo-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    viageo.ch Validation Instance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../development/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Dev guide
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="application-architecture">Application architecture</h1>
+<h2 id="foreword">Foreword</h2>
+<p>This document is the technical architecture file for the Extract project. It contains the structural elements of the project, such as the general architecture, data flows, interfaces, and data model. It is primarily intended for:</p>
+<ul>
+<li>The IT project manager</li>
+<li>The project architects</li>
+<li>The production team</li>
+<li>The maintenance team*</li>
+</ul>
+<h2 id="general-architecture">General architecture</h2>
+<h3 id="basic-logic-diagram">Basic logic diagram</h3>
+<p>The following logical diagram illustrates the principle of a configurable process.</p>
+<p><img alt="basic-logic-diagram" src="../../assets/dev-guide/basic-logic-diagram.png" width="1000" /></p>
+<ol>
+<li>The import is performed by the application for each declared and active connector.</li>
+<li>For each request element, the application applies the dispatch rules that define which process should be launched.</li>
+<li>Within each process, the pre-configured tasks are executed. Each process runs independently. The tasks in a process may include the following: adding a comment, validation, extraction, archiving.</li>
+<li>The export is performed for each request element by the connector that imported it.</li>
+</ol>
+<h3 id="software-architecture-diagram">Software architecture diagram</h3>
+<p>The proposed solution is based on a modular and scalable architecture. The various functional components are illustrated in the diagram below.</p>
+<p><img alt="software-architecture-diagram" src="../../assets/dev-guide/software-architecture-diagram.png" width="800" /></p>
+<h3 id="flows-description">Flows description</h3>
+<p>The solution consists of a single server, so no specific flow needs to be set up other than HTTP(S) access to this server (port 80 or 443).</p>
+<h2 id="data-description">Data description</h2>
+<h3 id="database-schema">Database schema</h3>
+<p>A single database and a single schema are created, and the user who owns the schema is used for all connections from the implemented solution (read/write).</p>
+<h3 id="conceptual-data-model">Conceptual data model</h3>
+<p><img alt="data-model" src="../../assets/dev-guide/data-model.png" width="1000" /></p>
+<h3 id="data-tables-description">Data tables description</h3>
+<h4 id="connectors">CONNECTORS</h4>
+<p>Table listing the connectors configured in the system. It is not possible to modify/delete a connector if a related request is incomplete. Deleting a connector involves deleting the associated rules and setting the id_connector of the related requests in the REQUESTS table to null.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_connector</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>connector_code</code></td>
+<td>varchar 50</td>
+<td>Code identifying the connector type. Retrieved from the connector itself via a specific function. The code must be unique in the connector catalog.</td>
+<td><em>easysdiv4</em></td>
+</tr>
+<tr>
+<td><code>connector_label</code></td>
+<td>varchar 255</td>
+<td>Connector label. Retrieved from the connector itself via a specific function.</td>
+<td><em>EasySdi V4</em></td>
+</tr>
+<tr>
+<td><code>connector_params</code></td>
+<td>varchar 4000</td>
+<td>Connector-specific parameters in JSON format. The list of parameters and their types are retrieved from the connector itself via a specific function.</td>
+<td><em>cf 4.1</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>varchar 50</td>
+<td>Name given to the connector instance</td>
+<td><em>asitvd_dev</em></td>
+</tr>
+<tr>
+<td><code>import_freq</code></td>
+<td>int</td>
+<td>Frequency of connector queries when active</td>
+<td><em>60</em></td>
+</tr>
+<tr>
+<td><code>active</code></td>
+<td>boolean</td>
+<td>Defines whether the connector is active or not</td>
+<td><em>true</em></td>
+</tr>
+<tr>
+<td><code>last_import_msg</code></td>
+<td>varchar 4000</td>
+<td>Last message returned by the connector import</td>
+<td><em>Success</em></td>
+</tr>
+<tr>
+<td><code>last_import_date</code></td>
+<td>datetime</td>
+<td>Date and time of the last import</td>
+<td><em>16/11/2016 21:15</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="rules">RULES</h4>
+<p>Table listing the rules applied to a given connector and associating a process with each of them.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_rule</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>id_process</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the PROCESSES table</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>id_connector</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the CONNECTORS table</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>rule</code></td>
+<td>varchar 4000</td>
+<td>Definition of the rule according to the system's specific syntax</td>
+<td><em>prod_code == ‘11’</em></td>
+</tr>
+<tr>
+<td><code>active</code></td>
+<td>boolean</td>
+<td>Defines whether the rule is active or not</td>
+<td><em>true</em></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>int</td>
+<td>Scheduling of rules for the same connector</td>
+<td><em>5</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="processes">PROCESSES</h4>
+<p>Table listing the processes configured in the system. It is not possible to modify (i.e., the tasks that comprise it) a process if a related request is ONGOING. It is not possible to delete a process if a related request is incomplete or if it is associated with a connector rule.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_process</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>varchar 255</td>
+<td>Process title</td>
+<td><em>Réseau de Gaz</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="tasks">TASKS</h4>
+<p>Table listing the tasks (plugins) configured for a given process.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_task</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>id_process</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the PROCESSES table</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>task_code</code></td>
+<td>varchar 50</td>
+<td>Code identifying the task plugin type. Retrieved from the plugin itself via a specific function. The code must be unique in the connector catalog</td>
+<td><em>FME2016</em></td>
+</tr>
+<tr>
+<td><code>task_label</code></td>
+<td>varchar 255</td>
+<td>Task plugin label. Retrieved from the plugin itself via a specific function</td>
+<td><em>Extraction FME 2016</em></td>
+</tr>
+<tr>
+<td><code>task_params</code></td>
+<td>varchar 4000</td>
+<td>Parameters specific to the task plugin in json format. The list of parameters and their type are retrieved from the plugin itself via a specific function</td>
+<td><em>cf 0</em></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>int</td>
+<td>Scheduling of tasks between each other for the same process</td>
+<td><em>3</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="processes_users">PROCESSES_USERS</h4>
+<p>Table ensuring the assignment of one or more users to a given process.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_process</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the PROCESSES table</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>id_user</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the USERS table</td>
+<td><em>1</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="processes_usergroups">PROCESSES_USERGROUPS</h4>
+<p>Table ensuring the assignment of one or more groups to a given process.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_process</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the PROCESSES table</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>id_usergroup</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the USERGROUPS table</td>
+<td><em>1</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="users">USERS</h4>
+<p>User table. It is not possible to delete a user if they are associated with a process. When a user is deleted, the items linked to them in the REQUEST_HISTORY table are assigned an <code>id_user</code> value of <code>null</code>, indicating that the user is now unknown.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_user</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>user_type</code></td>
+<td>string</td>
+<td>User type: LOCAL: user whose Extract database is the authentication source. LDAP: user whose LDAP server is the authentication source</td>
+<td><em>LOCAL</em></td>
+</tr>
+<tr>
+<td><code>two_factor_status</code></td>
+<td>string</td>
+<td>2FA status: ACTIVE / INACTIVE / STANDBY</td>
+<td><em>ACTIVE</em></td>
+</tr>
+<tr>
+<td><code>two_factor_forced</code></td>
+<td>varchar 100</td>
+<td>2FA imposed by the administrator ?</td>
+<td><em>true</em></td>
+</tr>
+<tr>
+<td><code>two_factor_token</code></td>
+<td>varchar 100</td>
+<td>String used to generate two-factor authentication codes (encrypted)</td>
+<td><em>Xxxxx</em></td>
+</tr>
+<tr>
+<td><code>two_factor_standby_token</code></td>
+<td>string</td>
+<td>String used to generate two-factor authentication codes (encrypted) awaiting validation by the user</td>
+<td><em>Xxxxx</em></td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td>string</td>
+<td>Attribute that can take two values. ADMIN: Administrator. OPERATOR: Operator. Note: the texts corresponding to the values are managed in the application itself to ensure multilingual support.</td>
+<td><em>ADMIN</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>varchar 50</td>
+<td>Full name of the user</td>
+<td><em>Xxxx</em></td>
+</tr>
+<tr>
+<td><code>login</code></td>
+<td>varchar 50</td>
+<td>User login</td>
+<td><em>Xxxx</em></td>
+</tr>
+<tr>
+<td><code>pass</code></td>
+<td>varchar 60</td>
+<td>User password</td>
+<td><strong><em>*</em></strong></td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>varchar 50</td>
+<td>User email</td>
+<td><em><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#64;&#109;&#121;&#101;&#110;&#116;&#114;&#101;&#112;&#114;&#105;&#115;&#101;&#46;&#99;&#104;">&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#64;&#109;&#121;&#101;&#110;&#116;&#114;&#101;&#112;&#114;&#105;&#115;&#101;&#46;&#99;&#104;</a></em></td>
+</tr>
+<tr>
+<td><code>active</code></td>
+<td>boolean</td>
+<td>Defines whether the user is active or not</td>
+<td><em>true</em></td>
+</tr>
+<tr>
+<td><code>mailactive</code></td>
+<td>boolean</td>
+<td>Defines whether notifications are active for the user</td>
+<td><em>true</em></td>
+</tr>
+<tr>
+<td><code>tokenpass</code></td>
+<td>varchar 50</td>
+<td>Token used for password recovery (single use). Attribute reset to null when the user next logs in (regardless of the password used)</td>
+<td><em>so37dd9sxwxdx3449ckl</em></td>
+</tr>
+<tr>
+<td><code>tokenexpire</code></td>
+<td>datetime</td>
+<td><strong>Foreign key</strong> linking to the USERGROUPS table. Token expiration date/time</td>
+<td><em>2016.01.01 12 :00</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="recovery_codes">RECOVERY_CODES</h4>
+<p>Table of recovery codes per user in case of loss of access to the device enabling two-factor authentication. When a code is successfully used, it is removed from this table.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_code</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>Id_user</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the USERS table</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td>varchar 100</td>
+<td>Recovery code (hashed)</td>
+<td><em>Xxxxx</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="remember_me_tokens">REMEMBER_ME_TOKENS</h4>
+<p>Table tracking tokens issued so that two-factor authentication is not required for a user on a machine for a certain period of time.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_code</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>Id_user</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the USERS table</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td>varchar 100</td>
+<td>Random string contained in the authorization cookie</td>
+<td><em>Xxxxxx</em></td>
+</tr>
+<tr>
+<td><code>tokenexpire</code></td>
+<td>timestamp</td>
+<td>Date and time of authorization expiration</td>
+<td><em>154564566</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="requests">REQUESTS</h4>
+<p>Table listing current and completed requests.</p>
+<p>In order to manage connectors with multiple interfaces, the connector itself must provide the request elements in a standardized format for database entry. This format consists of <strong>p_xxx</strong> attributes.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id_request</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>id_process</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the PROCESSES table.<br> This parameter remains null if no rule matches the query element.</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>id_connector</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the CONNECTORS table. <br> This parameter is null if the associated connector has been deleted</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>p_orderlabel</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> Order name</td>
+<td><em>123456 / 6</em></td>
+</tr>
+<tr>
+<td><code>p_orderguid</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> Order ID, also to be provided when sending the result</td>
+<td><em>677587e2-057f-0144-ddc1-9feca766448f</em></td>
+</tr>
+<tr>
+<td><code>p_productguid</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> ID of the product ordered, also to be provided when sending the result</td>
+<td><em>708e932b-81c3-2ce4-b907-ed07e61ac5f9</em></td>
+</tr>
+<tr>
+<td><code>p_productlabel</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> Name of the product ordered</td>
+<td><em>Plan du réseau d’eau commune de Bex</em></td>
+</tr>
+<tr>
+<td><code>p_organism</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> Organization receiving the order</td>
+<td><em>Terrassements SA</em></td>
+</tr>
+<tr>
+<td><code>p_client</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> Customer receiving the order</td>
+<td><em>Terrassements SA</em></td>
+</tr>
+<tr>
+<td><code>p_clientguid</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> Customer ID</td>
+<td><em>708e932b-81c3-2ce4-b907-ed07e61ac5f9</em></td>
+</tr>
+<tr>
+<td><code>p_organismguid</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> Organization ID</td>
+<td><em>708e932b-81c3-2ce4-b907-ed07e61ac5f9</em></td>
+</tr>
+<tr>
+<td><code>p_tiers</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> Third party linked to the order</td>
+<td><em>Commune de Bex</em></td>
+</tr>
+<tr>
+<td><code>p_tiersguid</code></td>
+<td>varchar 255</td>
+<td>Standardized query parameter <br> GUID of the third party linked to the order</td>
+<td><em>708e932b-81c3-2ce4-b907-ed07e61ac5f9</em></td>
+</tr>
+<tr>
+<td><code>p_clientdetails</code></td>
+<td>varchar 4000</td>
+<td>Standardized query parameter <br> Details of the customer receiving the order</td>
+<td><em>Nom de rue 37<br>1880 Bex<br>Tel :00.00.00.00.00<br>Mail : <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#120;&#120;&#120;&#64;&#121;&#121;&#121;&#46;&#99;&#111;&#109;">&#120;&#120;&#120;&#64;&#121;&#121;&#121;&#46;&#99;&#111;&#109;</a></em></td>
+</tr>
+<tr>
+<td><code>p_tiersdetails</code></td>
+<td>varchar 4000</td>
+<td>Standardized query parameter <br> Details of the third party linked to the order</td>
+<td><em>Nom de rue 37<br>1880 Bex<br>Tel :00.00.00.00.00<br>Mail : <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#120;&#120;&#120;&#64;&#121;&#121;&#121;&#46;&#99;&#111;&#109;">&#120;&#120;&#120;&#64;&#121;&#121;&#121;&#46;&#99;&#111;&#109;</a></em></td>
+</tr>
+<tr>
+<td><code>p_perimeter</code></td>
+<td>varchar 4000</td>
+<td>Standardized query parameter <br> Coordinates of the extraction polygon</td>
+<td><em>POLYGON((6.9378 46.1056,6.1245 …</em></td>
+</tr>
+<tr>
+<td><code>p_surface</code></td>
+<td>float</td>
+<td>Standardized query parameter <br> Extraction polygon area</td>
+<td><em>123.4 (m2)</em></td>
+</tr>
+<tr>
+<td><code>p_parameters</code></td>
+<td>varchar 4000</td>
+<td>Standardized query parameter <br> List of non-standardized parameters passed as is to task plugins</td>
+<td><em>{‘format’ :’pdf’, … }</em></td>
+</tr>
+<tr>
+<td><code>p_external_url</code></td>
+<td>varchar 255</td>
+<td>URL for accessing order details on the origin server</td>
+<td><em><a href="https://viageo.ch/commandes/123456">https://viageo.ch/commandes/123456</a></em></td>
+</tr>
+<tr>
+<td><code>remark</code></td>
+<td>varchar 4000</td>
+<td>Any comments related to the query element. Modifiable by task plugins</td>
+<td><em>Donnée fournie à titre confidentielle</em></td>
+</tr>
+<tr>
+<td><code>folder_in</code></td>
+<td>varchar 255</td>
+<td>Request element input directory. Defined by the application based on a base path (configurable by the administrator). It is sent to task plugins along with the other parameters of the request element</td>
+<td><em>/677587e2-057f-0144-ddc1-9feca766448f/20161212180000/in</em></td>
+</tr>
+<tr>
+<td><code>folder_out</code></td>
+<td>varchar 255</td>
+<td>Output directory of the request element. Defined by the application based on a base path (configurable by the administrator). It is sent to the task plugins along with the other request element parameters.</td>
+<td><em>/677587e2-057f-0144-ddc1-9feca766448f/20161212180000/out</em></td>
+</tr>
+<tr>
+<td><code>start_date</code></td>
+<td>datetime</td>
+<td>Date and time the query was created in the system.</td>
+<td><em>22.11.2016 09:00</em></td>
+</tr>
+<tr>
+<td><code>end_date</code></td>
+<td>datetime</td>
+<td>Date and time the query processing ended.</td>
+<td><em>22.11.2016 09:15</em></td>
+</tr>
+<tr>
+<td><code>tasknum</code></td>
+<td>int</td>
+<td>Number of the task currently in progress in the process.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>rejected</code></td>
+<td>boolean</td>
+<td>False by default. <br> Flag indicating that the operator or administrator wanted to stop the associated processing and thus reject the request.</td>
+<td><em>False</em></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>string</td>
+<td>Status of the request in its lifecycle.<br><br>IMPORTED: Imported – The request is initialized in the system following a connector import (or when the status is forced by the administrator)<br>IMPORTFAIL: Import failure – The request cannot be processed because its import via the connector failed<br>ONGOING: In progress – A rule has allowed the request to be associated with a process. The orchestrator can move it forward.<br>STANDBY: On hold – Manual action is required on the current task (e.g., validation plugin).<br>ERROR: Error – The current task has encountered an error (e.g., FME script not found).<br>UNMATCHED: Unmatched – No rule has allowed a process to be associated with the request<br>TOEXPORT: To be exported – The last task in a process has been completed successfully. The request is ready for export<br>EXPORTFAIL: Export failure – The request has been processed but its export via its original connector has failed<br>FINISHED: Finished – The request has been processed and the export was successful<br><br>Note: the texts corresponding to the values are managed in the application itself in order to ensure multilingual support.</td>
+<td><em>IMPORTED</em></td>
+</tr>
+<tr>
+<td><code>last_reminder</code></td>
+<td>datetime</td>
+<td>Date and time of the last reminder in the case of a request awaiting validation</td>
+<td><em>22.11.2016 09:00</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="request_history">REQUEST_HISTORY</h4>
+<p>Table listing the processing history for each of the requests initiated. For a given request, there may be more items in this table than tasks, since the user can go back in the processing. This table must remain completely independent of the process (and therefore the tasks) attached to the request. This is to avoid corrupting the history if the process is modified retrospectively. All history items must therefore be duplicated in this table (e.g., task_label).</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Id_record</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>id_request</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the PROCESSES table</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>id_user</code></td>
+<td>int</td>
+<td><strong>Foreign key</strong> linking to the USERS table. <br><br>0 = system<br>null = unknown (user deleted)<br><br>Note: the texts corresponding to the values are managed in the application itself in order to ensure multilingual support.</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>task_label</code></td>
+<td>varchar 255</td>
+<td>Label of the corresponding task plugin or Export for the export step or Import for the import step</td>
+<td><em>Extraction FME 2016</em></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>string</td>
+<td>Task status <br><br>ONGOING: In progress - The task is being processed<br>STANDBY: Waiting - Manual action is required (e.g. validation plugin)<br>ERROR: Error - The task has encountered an error (e.g. FME script not found) or the import/export has failed<br>FINISHED: Finished - The task/import/export has been successfully completed<br><br>Note: the texts corresponding to the values are managed in the application itself in order to ensure multilingual support.</td>
+<td><em>FINISHED</em></td>
+</tr>
+<tr>
+<td><code>last_msg</code></td>
+<td>varchar 4000</td>
+<td>Last message returned by the plugin (error message or success message) or by the connector (import/export step). Incremented by 1 with each new entry in this table (for the same id_request)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>step</code></td>
+<td>int</td>
+<td>Standardized query parameter <br> Name of the product ordered</td>
+<td><em>3</em></td>
+</tr>
+<tr>
+<td><code>start_date</code></td>
+<td>datetime</td>
+<td>Date and time when task processing began</td>
+<td><em>22.11.2016 09:00</em></td>
+</tr>
+<tr>
+<td><code>end_date</code></td>
+<td>datetime</td>
+<td>Date and time when task processing ended<br>Null if the task plugin is currently running.</td>
+<td><em>22.11.2016 09:02</em></td>
+</tr>
+<tr>
+<td><code>process_step</code></td>
+<td>int</td>
+<td>Task number in the process</td>
+<td><em>1</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="system">SYSTEM</h4>
+<p>Table listing the system parameters required for the solution to function properly.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td>varchar 50</td>
+<td><strong>Primary key</strong></td>
+<td><em>smtp_port</em></td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>varchar 65000</td>
+<td>System attribute value</td>
+<td><em>25</em></td>
+</tr>
+</tbody>
+</table>
+<p>Below is a list of the keys contained in this table. These keys cannot be modified.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value (example or domains)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>freq_scheduler_sec</code></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>dashboard_interval</code></td>
+<td><em>10</em></td>
+</tr>
+<tr>
+<td><code>smtp_server</code></td>
+<td><em>mail.laboite.ch</em></td>
+</tr>
+<tr>
+<td><code>smtp_port</code></td>
+<td><em>25</em></td>
+</tr>
+<tr>
+<td><code>smtp_from_name</code></td>
+<td><em>EX3K</em></td>
+</tr>
+<tr>
+<td><code>smtp_from_mail</code></td>
+<td><em><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#120;&#51;&#107;&#46;&#110;&#111;&#114;&#101;&#112;&#108;&#121;&#64;&#108;&#97;&#98;&#111;&#105;&#116;&#101;&#46;&#99;&#104;">&#101;&#120;&#51;&#107;&#46;&#110;&#111;&#114;&#101;&#112;&#108;&#121;&#64;&#108;&#97;&#98;&#111;&#105;&#116;&#101;&#46;&#99;&#104;</a></em></td>
+</tr>
+<tr>
+<td><code>smtp_pass</code></td>
+<td><strong>*</strong>*</td>
+</tr>
+<tr>
+<td><code>smtp_user</code></td>
+<td><em>admin</em></td>
+</tr>
+<tr>
+<td><code>smtp_ssl</code></td>
+<td><em>0</em></td>
+</tr>
+<tr>
+<td><code>base_path</code></td>
+<td><em>D:\extract\orders</em></td>
+</tr>
+<tr>
+<td><code>display_temp_folder</code></td>
+<td><em>false</em></td>
+</tr>
+<tr>
+<td><code>mails_enable</code></td>
+<td><em>true</em></td>
+</tr>
+<tr>
+<td><code>op_mode</code></td>
+<td><em>ON / RANGES / OFF</em></td>
+</tr>
+<tr>
+<td><code>op_timeranges</code></td>
+<td><em>[<br>&emsp;{dayfrom :1, dayto :4, timefrom :7, timeto :18},<br>&emsp;{dayfrom :5, dayto :5, timefrom :7, timeto :16},<br>&emsp;{…}<br>]</em></td>
+</tr>
+<tr>
+<td><code>ldap_on</code></td>
+<td><em>true</em></td>
+</tr>
+<tr>
+<td><code>ldap_servers</code></td>
+<td><em>ldap.example.com, ldap2.example.com</em></td>
+</tr>
+<tr>
+<td><code>ldap_encryption_type</code></td>
+<td><em>LDAPS / STARTTLS</em></td>
+</tr>
+<tr>
+<td><code>ldap_base_dn</code></td>
+<td>*cn=admin,dc=example,dc=com *</td>
+</tr>
+<tr>
+<td><code>ldap_admins_group</code></td>
+<td><em>CN=YourGroup, OU=Users,DC=YourDomain,DC=COM</em></td>
+</tr>
+<tr>
+<td><code>ldap_operators_group</code></td>
+<td><em>CN=YourGroup, OU=Users,DC=YourDomain,DC=COM</em></td>
+</tr>
+<tr>
+<td><code>ldap_synchro_on</code></td>
+<td><em>true</em></td>
+</tr>
+<tr>
+<td><code>ldap_user</code></td>
+<td><em>Service_account_extract</em></td>
+</tr>
+<tr>
+<td><code>ldap_password</code></td>
+<td><em>xxxxx</em></td>
+</tr>
+<tr>
+<td><code>ldap_synchro_freq</code></td>
+<td><em>24</em></td>
+</tr>
+<tr>
+<td><code>ldap_last_synchro</code></td>
+<td><em>22.11.2016 09:00</em></td>
+</tr>
+<tr>
+<td><code>standby_reminder_days</code></td>
+<td><em>3</em></td>
+</tr>
+<tr>
+<td><code>validation_focus_properties</code></td>
+<td><em>REMARK, PROJECTION, FORMAT</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="remarks">REMARKS</h4>
+<p>Table listing predefined messages to be used as comments during the validation stage of a process.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Id_remark</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td>varchar 65000</td>
+<td>Comment text</td>
+<td><em>Madame, Monsieur, Votre commande...</em></td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>varchar 255</td>
+<td>Comment title (for display in the list)</td>
+<td><em>Périmètre non valide</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="usergroups">USERGROUPS</h4>
+<p>Table listing user groups that can be assigned to a process</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Id_usergroup</code></td>
+<td>int</td>
+<td><strong>Primary key</strong></td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>varchar  50</td>
+<td>User group name</td>
+<td><em>Responsables cadastre</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="users_usergroups">USERS_USERGROUPS</h4>
+<p>Table ensuring that users belong to user groups</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Id_usergroup</code></td>
+<td>int</td>
+<td>Foreign key linking to the USERGROUPS table</td>
+<td><em>1</em></td>
+</tr>
+<tr>
+<td><code>Id_user</code></td>
+<td>int</td>
+<td>Foreign key linking to the USERS table</td>
+<td><em>1</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="deletion-of-database-elements">Deletion of database elements</h3>
+<p>The table below shows the constraints and triggers established directly in the database for managing cascading deletions.</p>
+<p>Note: these actions/deletions do not need to be managed in the web interface.</p>
+<table>
+<thead>
+<tr>
+<th>Source element</th>
+<th>Target element</th>
+<th>Deletion/cascading action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CONNECTORS</code></td>
+<td><code>RULES</code></td>
+<td>Deleting items in the RULES linked table<br>Note: however, this scenario is only possible for connectors without unfinished linked requests. The interface must not allow a connector to be deleted if it has an ongoing or pending request associated with it.</td>
+</tr>
+<tr>
+<td><code>CONNECTORS</code></td>
+<td><code>REQUESTS</code></td>
+<td>Setting the id_connector in the REQUESTS table to null<br>Note: however, this scenario is only possible for connectors without unfinished linked requests. The interface must not allow a connector to be deleted if it has a request in progress or pending.</td>
+</tr>
+<tr>
+<td><code>REQUESTS</code></td>
+<td><code>REQUEST_HISTORY</code></td>
+<td>Deleting items in the linked REQUEST_HISTORY table.</td>
+</tr>
+<tr>
+<td><code>PROCESSES</code></td>
+<td><code>REQUESTS</code></td>
+<td>Setting the id_process in the REQUESTS table to null<br>Note: however, this scenario is only possible for completed requests. The interface must not allow a process to be deleted if it has a pending or ongoing request associated with it.</td>
+</tr>
+<tr>
+<td><code>PROCESSES</code></td>
+<td><code>RULES</code></td>
+<td>Delete items in the linked RULES table<br>Note: however, this scenario should never occur, as the interface must not allow a process to be deleted if it has a rule associated with it</td>
+</tr>
+<tr>
+<td><code>PROCESSES</code></td>
+<td><code>TASKS</code></td>
+<td>Deleting items in the TASKS related table</td>
+</tr>
+<tr>
+<td><code>PROCESSES</code></td>
+<td><code>PROCESSES_USERS</code></td>
+<td>Deleting items in the PROCESSES_USERS related table</td>
+</tr>
+<tr>
+<td><code>PROCESSES</code></td>
+<td><code>PROCESSES_USERGROUPS</code></td>
+<td>Deleting items in the PROCESSES_USERGROUPS related table</td>
+</tr>
+<tr>
+<td><code>USERS</code></td>
+<td><code>REQUEST_HISTORY</code></td>
+<td>Setting the id_user in the REQUEST_HISTORY table to null</td>
+</tr>
+<tr>
+<td><code>USERS</code></td>
+<td><code>PROCESSES_USERS</code></td>
+<td>Deleting items in the PROCESSES_USERS related table</td>
+</tr>
+<tr>
+<td><code>USERS</code></td>
+<td><code>USER_USERGROUPS</code></td>
+<td>Deleting items in the USER_USERGROUPS related table</td>
+</tr>
+<tr>
+<td><code>USERS</code></td>
+<td><code>RECOVERY_CODES</code></td>
+<td>Delete items in the RECOVERY_CODES related table</td>
+</tr>
+<tr>
+<td><code>USERS</code></td>
+<td><code>REMEMBER_ME_TOKENS</code></td>
+<td>Delete items in the REMEMBER_ME_TOKENS related table</td>
+</tr>
+<tr>
+<td><code>USERGROUPS</code></td>
+<td><code>PROCESSES_USERGROUPS</code></td>
+<td>Delete items in the PROCESSES_USERGROUPS related table</td>
+</tr>
+<tr>
+<td><code>USERGROUPS</code></td>
+<td><code>USER_USERGROUPS</code></td>
+<td>Delete items in the USER_USERGROUPS related table</td>
+</tr>
+</tbody>
+</table>
+<h3 id="request-lifecycle">Request lifecycle</h3>
+<p>Requests follow the lifecycle illustrated in the diagram below. Transitions show the system or user event that triggered them.</p>
+<p><img alt="request-lifecycle" src="../../assets/dev-guide/request-lifecycle.png" width="900" /></p>
+<h2 id="description-of-interfaces-and-third-party-systems">Description of interfaces and third-party systems</h2>
+<h3 id="connector-catalog">Connector catalog</h3>
+<h4 id="introduction">Introduction</h4>
+<p>The connector catalog contains all connectors available for the system. They must all implement the following interface functions:</p>
+<ul>
+<li><code>String getCode</code>: returns the connector code, which must be unique in the catalog</li>
+<li><code>String getLabel</code>: returns the connector name</li>
+<li><code>String getDescription</code>: returns formatted text describing the connector</li>
+<li><code>String getHelp</code>: returns formatted text to guide the user in entering parameters</li>
+<li><code>String getParams</code>: returns the parameters specific to the connector, in json format. Each parameter is defined by a unique code, a label, a type, whether it is mandatory or not, and any other tags specific to the type. The types available for connectors are as follows:<ul>
+<li><strong>text</strong> : character string to be entered via a text box. The maximum length of the string is specified in an additional attribute.</li>
+<li><strong>pass</strong>: character string to be entered via a hidden text field. The maximum length of the string is specified in an additional attribute.</li>
+</ul>
+</li>
+<li><code>Object new(params)</code>: creates an instance of the connector by passing the user-defined parameters. Returns the created object.</li>
+<li><code>Object importCommands()</code>: launches the command import. Returns an object consisting of an error code, the list of request elements in standardized format, and, if applicable, an associated message.</li>
+<li><code>Object exportResults(request)</code>: launches the export of a command result. The request element (containing in particular the output directory, the remark attribute, the status, etc.) is passed as a parameter (complete object from the REQUESTS table). Returns an error code and, if applicable, an associated message.</li>
+</ul>
+<p>The following chapters list the return values of these functions for each of the connectors available in the first version of the solution. Note that plugins must implement multilingual support in the return values of functions. The descriptions below correspond to the English version.</p>
+<h4 id="easy-sdi-v4-connector">Easy SDI v4 connector</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getCode</code></td>
+<td>easysdiv4</td>
+</tr>
+<tr>
+<td><code>getLabel</code></td>
+<td>EasySdi V4</td>
+</tr>
+<tr>
+<td><code>getDescription</code></td>
+<td><em>Connecteur pour la solution EasySdi V4</em></td>
+</tr>
+<tr>
+<td><code>getHelp</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getParams</code></td>
+<td>[<br>&emsp;{‘code’ : ‘url’, ‘label’ : ‘URL du service’, ‘type’ : ‘text’, ‘req’ : ‘true’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘login’, ‘label’ : ‘Login distant’, ‘type’ : ‘text’, ‘req’ : ‘true’, ‘maxlength’ : 50},<br>&emsp;{‘code’ : ‘pass’, ‘label’ : ‘Mot de passe’, ‘type’ : ‘pass’, ‘req’ : ‘true’, ‘maxlength’ : 50}<br>]<br><br>Below is an example of the corresponding settings (connector_params attribute in the CONNECTOR table):<br><br>{<br>&emsp; ‘url’ : ‘<a href="http://www.asitvd.ch/extractpoint/rest">http://www.asitvd.ch/extractpoint/rest</a>’,<br>&emsp; ‘login’ : ‘fournisseur12445’,<br>&emsp; ‘pass’ : ‘motdepasse’<br>}</td>
+</tr>
+</tbody>
+</table>
+<h3 id="task-plugin-catalog">Task Plugin Catalog</h3>
+<h4 id="introduction_1">Introduction</h4>
+<p>The task catalog contains all of the task plugins available for the system. They must all implement the following interface functions:</p>
+<ul>
+<li><code>String getCode</code>: returns the plugin code, which must be unique in the catalog.</li>
+<li><code>String getLabel</code>: returns the task plugin name.</li>
+<li><code>String getDescription</code>: returns formatted text describing the plugin </li>
+<li><code>String getHelp</code>: returns formatted text to guide the user in entering parameters</li>
+<li><code>String getPictoClass</code>: returns the class to be used for the plugin pictogram</li>
+<li><code>String getParams</code>: returns the parameters specific to the task plugin, in json format. Each parameter is defined by a unique code, a label, a type, whether it is mandatory or not, and any other tags specific to the type. The types available for task plugins are as follows:<ul>
+<li><strong>text</strong>: character string to be entered via a text box. The maximum length of the string is specified in an additional attribute. </li>
+<li><strong>multitext</strong>: character string to be entered via a multi-line text box. The maximum length of the string is specified in an additional attribute. Parameters of this type support    dynamic strings using the same keywords as the text type.</li>
+<li><strong>pass</strong>: character string to be entered via an obfuscated text field. The maximum length of the string is specified in an additional attribute.</li>
+<li><strong>list</strong>: list of choices to be entered via a drop-down list. The available options are specified in an additional attribute (values separated by |)</li>
+<li><strong>boolean</strong>: boolean to be entered via a checkbox</li>
+<li><strong>email</strong>: email address or list of email addresses separated by a semicolon and/or a comma.</li>
+<li><strong>list_msgs</strong> (for new validation plugin): multiple choice list filled in by the Extract core with the validation messages defined at the Extract instance level.</li>
+<li><strong>numeric</strong> (for FME Desktop plugin): Numeric value. Min, max, and step are specified in three additional attributes.</li>
+</ul>
+</li>
+<li><code>Object new(params)</code>: creates an instance of the plugin by passing the user-defined parameters. Returns the created object.</li>
+<li><code>Object execute(request)</code>: executes the task plugin according to the request element passed as parameters. Returns an object of the type:<ul>
+<li><strong>State</strong>: status among success, error, standby</li>
+<li><strong>Code</strong>: if applicable, return code </li>
+<li><strong>Message</strong>: message associated with the state (stored in last_msg for info). This can be a raw message from a tool underlying the plugin (e.g. FME), an informative message explaining why the plugin is on standby, etc.</li>
+<li><strong>Request</strong>: request element passed as input and possibly modified by the plugin</li>
+</ul>
+</li>
+</ul>
+<p>The following chapters list the return values of these functions for each of the plugins available in the first version of the solution. Note that plugins must implement multilingual support in the return values of functions (except, of course, for error/success messages from underlying tools). The descriptions below correspond to the English version.</p>
+<h4 id="file-archiving-plugin">File Archiving Plugin</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getCode</code></td>
+<td>ARCHIVE</td>
+</tr>
+<tr>
+<td><code>getLabel</code></td>
+<td>Archivage fichiers</td>
+</tr>
+<tr>
+<td><code>getDescription</code></td>
+<td>Copie des fichiers dans un répertoire local ou réseau</td>
+</tr>
+<tr>
+<td><code>getHelp</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getPictoClass</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getParams</code></td>
+<td>[<br>&emsp;{‘code’ : ‘path’, ‘label’ : ‘Chemin d’archivage’, ‘type’ : ‘text’, ‘req’ : ‘true’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘login’, ‘label’ : ‘Login’, ‘type’ : ‘text’, ‘req’ : ‘false’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘pass’, ‘label’ : ‘Mot de passe’, ‘type’ : ‘pass’, ‘req’ : ‘false’, ‘maxlength’ : 255},<br>]<br><br>Below is an example of the corresponding settings (task_params attribute in the TASK table):<br><br>{<br>&emsp; ‘path’ : ‘/var/extraction/{no_commande}-{date}/{code-produit}/’<br>}</td>
+</tr>
+</tbody>
+</table>
+<p>Note: This plugin supports dynamic strings in its settings according to the following keywords:</p>
+<ul>
+<li>{orderLabel}</li>
+<li>{orderGuid}</li>
+<li>{productGuid}</li>
+<li>{productLabel}</li>
+<li>{startDate}</li>
+<li>{organism}</li>
+<li>{client}</li>
+</ul>
+<h4 id="fme-2016-extraction-plugin">FME 2016 Extraction Plugin</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getCode</code></td>
+<td>FME2016</td>
+</tr>
+<tr>
+<td><code>getLabel</code></td>
+<td>Extraction FME 2016</td>
+</tr>
+<tr>
+<td><code>getDescription</code></td>
+<td>Workbench ou script FME Desktop 2016</td>
+</tr>
+<tr>
+<td><code>getHelp</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getPictoClass</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getParams</code></td>
+<td>[<br>&emsp;{‘code’ : ‘path’, ‘label’ : ‘Chemin du fichier workbench’, ‘type’ : ‘text’, ‘req’ : ‘true’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘pathFME’, ‘label’ : ‘Chemin du programme FME’, ‘type’ : ‘text’, ‘req’ : ‘true’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘instances’, ‘label’ : ‘Nombre de fme.exe lancés par ce workspace’, ‘type’ : ‘numeric’, ‘req’ : ‘true’, ‘min’ : 1, ‘step’ : 1, ‘max : 8}<br>]<br><br>Below is an example of the corresponding settings (task_params attribute in the TASK table):<br><br>{<br>&emsp;‘path’ : ‘/var/FME/exports_scripts/gaz_prod.fmw’,<br>&emsp;‘pathFME’: ‘/usr/share/fme-destop-2016/fme’,<br>&emsp;‘instances’: 3<br>}</td>
+</tr>
+</tbody>
+</table>
+<p>Please note that for the FME 2016 plugin to work properly, the scripts used must expose the following parameters:</p>
+<ul>
+<li><strong>opt_responseformat</strong>: FME parameter, managed internally by the plugin because it expects a return in json (html by default)</li>
+<li>
+<p><strong>Perimeter</strong>: perimeter in WKT format, in WGS84, provided by the import connector. For example:
+POLYGON((6.295363612819898 46.32659377501397,6.288481575413728 46.65130021757865,7.055293317619941 46. 656470518789625,7.057591178865101 46.33173342736276,6.295363612819898 46.32659377501397))</p>
+</li>
+<li>
+<p :=":" _FORMAT_:_GDB_="“FORMAT”:“GDB”," _PASS_THROUGH_="“PASS_THROUGH”," _PROJECTION_:_SWITZERLAND_="‘PROJECTION’:“SWITZERLAND”" _SELECTION_="“SELECTION”"><strong>Parameters</strong>: dynamic parameters provided in JSON format by the import connector. For example:</p>
+</li>
+<li><strong>Product</strong>: GUID of the product to be exported, provided by the import connector. For example:
+a049fecb-30d9-9124-ed41-068b566a0855</li>
+</ul>
+<h4 id="fme-server-extraction-plugin">FME Server Extraction Plugin</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getCode</code></td>
+<td>FMESERVER</td>
+</tr>
+<tr>
+<td><code>getLabel</code></td>
+<td>Extraction FME Server</td>
+</tr>
+<tr>
+<td><code>getDescription</code></td>
+<td>Job FME Server API 1.2</td>
+</tr>
+<tr>
+<td><code>getHelp</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getPictoClass</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getParams</code></td>
+<td>[<br>&emsp;{‘code’ : ‘url’, ‘label’ : ‘Url du service’, ‘type’ : ‘text’, ‘req’ : ‘true’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘login’, ‘label’ : ‘Login distant’, ‘type’ : ‘text’, ‘req’ : ‘false’, ‘maxlength’ : 50},<br>&emsp;{‘code’ : ‘pass’, ‘label’ : ‘Mot de passe’, ‘type’ : ‘pass’, ‘req’ : ‘false’, ‘maxlength’ : 50}<br>]<br><br>Below is an example of the corresponding settings (task_params attribute in the TASK table):<br><br>{<br>&emsp;‘url’ : ‘<a href="http://localhost/FME/exports_scripts/gaz_prod">http://localhost/FME/exports_scripts/gaz_prod</a>’,<br>&emsp;‘login’ : ‘admin’,<br>&emsp;‘pass’ : ‘password01’<br>}</td>
+</tr>
+</tbody>
+</table>
+<p>Please note that for the FME Server plugin to work properly, the scripts used must expose the following parameters:</p>
+<ul>
+<li><strong>opt_responseformat</strong>: FME parameter, managed internally by the plugin because it expects a return in json (html by default)</li>
+<li>
+<p><strong>Perimeter</strong>: perimeter in WKT format, in WGS84, provided by the import connector. For example:
+POLYGON((6.295363612819898 46.32659377501397,6.288481575413728 46.65130021757865,7.055293317619941 46. 656470518789625,7.057591178865101 46.33173342736276,6.295363612819898 46.32659377501397))</p>
+</li>
+<li>
+<p :=":" _FORMAT_:_GDB_="“FORMAT”:“GDB”," _PASS_THROUGH_="“PASS_THROUGH”," _PROJECTION_:_SWITZERLAND_="‘PROJECTION’:“SWITZERLAND”" _SELECTION_="“SELECTION”"><strong>Parameters</strong>: dynamic parameters provided in JSON format by the import connector. For example:</p>
+</li>
+<li><strong>Product</strong>: GUID of the product to be exported, provided by the import connector. For example:
+a049fecb-30d9-9124-ed41-068b566a0855</li>
+</ul>
+<h4 id="fixed-remark-plugin">Fixed remark plugin</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getCode</code></td>
+<td>REMARK</td>
+</tr>
+<tr>
+<td><code>getLabel</code></td>
+<td>Remarque fixe</td>
+</tr>
+<tr>
+<td><code>getDescription</code></td>
+<td>Ajoute une remarque pré-définie à l’élément de requête</td>
+</tr>
+<tr>
+<td><code>getHelp</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getPictoClass</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getParams</code></td>
+<td>[<br>&emsp;{‘code’ : ‘remark’, ‘label’ : ‘Remarque’, ‘type’ : ‘multitext’, ‘req’ : ‘true’, ‘maxlength’ : 5000},<br>&emsp;{‘code’ : ‘overwrite’, ‘label’ : ‘Ecraser la remarque existante’, ‘type’ : ‘boolean’}<br>]<br><br>Below is an example of the corresponding settings (task_params attribute in the TASK table):<br><br>{<br>&emsp;‘remark’ : ‘Les positions exactes des conduits doivent être vérifiées par sondage.\nVoir nos conditions sur <a href="http://laboite.ch/exploitation">http://laboite.ch/exploitation</a>’,<br>&emsp;‘overwrite’ : true<br>}</td>
+</tr>
+</tbody>
+</table>
+<h4 id="operator-validation-plugin">Operator validation plugin</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getCode</code></td>
+<td>VALIDATION</td>
+</tr>
+<tr>
+<td><code>getLabel</code></td>
+<td>Validation opérateur</td>
+</tr>
+<tr>
+<td><code>getDescription</code></td>
+<td>Demande à un opérateur de valider l’élément</td>
+</tr>
+<tr>
+<td><code>getHelp</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getPictoClass</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getParams</code></td>
+<td>[<br>&emsp;{’code’: ‘valid_msgs’, ‘label’: ‘Modèles de remarque pour la validation’, ‘type’ : ‘list_msgs’, ‘req’ : false},<br>&emsp;{’code’: ‘reject_msgs’, ‘label’: ‘Modèles de remarque pour l’annulation’, ‘type’ : ‘list_msgs’, ‘req’ : false}<br>]<br><br>Below is an example of the corresponding settings (task_params attribute in the TASK table):<br><br>{<br>&emsp;‘valid_msgs : ‘312,313,314’,<br>&emsp;‘reject_msgs’ : ‘313,315’<br>}<br><br><em>Note: validation must be performed by one of the operators assigned to the process. It is therefore not necessary to specify an operator at the plugin level itself.</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="cancelation-plugin">Cancelation Plugin</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getCode</code></td>
+<td>CANCELATION</td>
+</tr>
+<tr>
+<td><code>getLabel</code></td>
+<td>Annulation</td>
+</tr>
+<tr>
+<td><code>getDescription</code></td>
+<td>Annule le traitement et définit la remarque pour le client</td>
+</tr>
+<tr>
+<td><code>getHelp</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getPictoClass</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getParams</code></td>
+<td>[<br>&emsp;{‘code’ : ‘reason’, ‘label’ : ‘Raison de l’annulation’, ‘type’ : ‘multitext’, ‘req’ : ‘true’, ‘maxlength’ : 5000}<br>]<br><br>Below is an example of the corresponding settings (task_params attribute in the TASK table):<br><br>{<br>&emsp;‘remark’ : ‘Désolé, nous n'avons pas de donnée sur cette zone’<br>}</td>
+</tr>
+</tbody>
+</table>
+<h4 id="mail-notification-plugin">Mail notification plugin</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getCode</code></td>
+<td>NOTIFICATION</td>
+</tr>
+<tr>
+<td><code>getLabel</code></td>
+<td>Notification email</td>
+</tr>
+<tr>
+<td><code>getDescription</code></td>
+<td>Envoie une notification email personnalisable</td>
+</tr>
+<tr>
+<td><code>getHelp</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getPictoClass</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getParams</code></td>
+<td>[<br>&emsp;{‘code’ : ‘emails’, ‘label’ : ‘Emails de destinataires, séparés par des points-virgules’, ‘type’ : ‘email’, ‘req’ : ‘true’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘subject’, ‘label’ : ‘Objet du message’, ‘type’ : ‘text’, ‘req’ : ‘true’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘body’, ‘label’ : ‘Contenu du message’, ‘type’ : ‘multitext’, ‘req’ : ‘true’, ‘maxlength’ : 5000}<br>]</td>
+</tr>
+</tbody>
+</table>
+<p>Note: This plugin supports dynamic strings in its settings according to the following keywords:</p>
+<ul>
+<li>{orderLabel}</li>
+<li>{orderGuid}</li>
+<li>{productGuid}</li>
+<li>{productLabel}</li>
+<li>{startDate}</li>
+<li>{organism}</li>
+<li>{client}</li>
+</ul>
+<h4 id="qgis-server-atlas-plugin">QGIS Server Atlas Plugin</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getCode</code></td>
+<td>QGISSERVERATLAS</td>
+</tr>
+<tr>
+<td><code>getLabel</code></td>
+<td>Impression Atlas QGIS Server</td>
+</tr>
+<tr>
+<td><code>getDescription</code></td>
+<td>Imprime les pages d’un Atlas QGIS Server touchées par le périmètre, en PDF</td>
+</tr>
+<tr>
+<td><code>getHelp</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getPictoClass</code></td>
+<td><em>Se référer directement au connecteur</em></td>
+</tr>
+<tr>
+<td><code>getParams</code></td>
+<td>[<br>&emsp;{‘code’ : ‘url’, ‘label’ : ‘Url de base QGIS Server, ‘type’ : ‘text’, ‘req’ : ‘true’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘template’, ‘label’ : ‘Template à utiliser pour le layout’, ‘type’ : ‘text’, ‘req’ : ‘true’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘path’, ‘label’ : ‘Chemin du projet QGIS’, ‘type’ : ‘text’, ‘req’ : ‘false’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘login’, ‘label’ : ‘Login distant’, ‘type’ : ‘text’, ‘req’ : ‘false’, ‘maxlength’ : 50},<br>&emsp;{‘code’ : ‘pass’, ‘label’ : ‘Mot de passe’, ‘type’ : ‘pass’, ‘req’ : ‘false’, ‘maxlength’ : 50},<br>&emsp;{‘code’ : ‘layers’, ‘label’ : ‘Layers à utiliser (séparation par des virgules)’, ‘type’ : ‘text’, ‘req’ : ‘false’, ‘maxlength’ : 255},<br>&emsp;{‘code’ : ‘crs’, ‘label’ : ‘CRS (Code EPSG)’, ‘type’ : ‘text’, ‘req’ : ‘false’, ‘maxlength’ : 50}<br>]<br><br>Below is an example of the corresponding settings (task_params attribute in the TASK table):<br><br>{<br>&emsp;‘url’ : ‘<a href="https://monserveur.lan/qgis-server">https://monserveur.lan/qgis-server</a>',<br>&emsp;‘template’ : ‘myplan’,<br>&emsp;‘path’ : ‘/etc/qgis-server/maps/world/world.qgs’,<br>&emsp;‘login’ : ‘admin’,<br>&emsp;‘pass’ : ‘password01’,<br>&emsp;‘layers’ : ‘places,airports,water’,<br>&emsp;‘crs’ : ‘EPSG:2056’<br>}</td>
+</tr>
+</tbody>
+</table>
+<h2 id="techincal-details">Techincal details</h2>
+<h3 id="rules-management">Rules Management</h3>
+<p>The solution implements a syntactic language designed to interpret incoming requests and associate them with specific processes. Users can define rules consisting of one or more criteria, separated by a Boolean operator:</p>
+<p><code>criterion1 and/or criterion2 and/or criterion3 and/or … and/or criterionN</code></p>
+<p>Each criterion follows the following syntax:</p>
+<p><code>&lt;property&gt; &lt;operator&gt; &lt;value&gt;</code></p>
+<p>For example: <code>productguid == “708e932b-81c3-2ce4-b907-ed07e61ac5f9”</code></p>
+<h4 id="properties">Properties</h4>
+<p>The usable properties are listed in the table below. For each property, the type of operator that can be used (attribute/geographic) and the type of value to be entered (text/numeric/geometry) are indicated.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>DB Field</th>
+<th>Description/Remark</th>
+<th>Operator Type</th>
+<th>Value Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>orderlabel</code></td>
+<td>p_orderlabel</td>
+<td>p_orderlabel of the request element</td>
+<td>Attribute</td>
+<td>Text</td>
+</tr>
+<tr>
+<td><code>orderguid</code></td>
+<td>p_orderguid</td>
+<td>p_orderguid of the request element</td>
+<td>Attribute</td>
+<td>Text</td>
+</tr>
+<tr>
+<td><code>productguid</code></td>
+<td>p_product_guid</td>
+<td>p_product_guid of the request element</td>
+<td>Attribute</td>
+<td>Text</td>
+</tr>
+<tr>
+<td><code>productlabel</code></td>
+<td>p_productlabel</td>
+<td>p_productlabel of the request element</td>
+<td>Attribute</td>
+<td>Text</td>
+</tr>
+<tr>
+<td><code>organism</code></td>
+<td>p_organism</td>
+<td>p_organism of the request element</td>
+<td>Attribute</td>
+<td>Text</td>
+</tr>
+<tr>
+<td><code>client</code></td>
+<td>p_client</td>
+<td>p_client of the request element</td>
+<td>Attribute</td>
+<td>Text</td>
+</tr>
+<tr>
+<td><code>tiers</code></td>
+<td>p_tiers</td>
+<td>p_tiers of the request element</td>
+<td>Attribute</td>
+<td>Text</td>
+</tr>
+<tr>
+<td><code>tiersguid</code></td>
+<td>p_tiersguid</td>
+<td>p_tiersguid of the request element</td>
+<td>Attribute</td>
+<td>Text</td>
+</tr>
+<tr>
+<td><code>perimeter</code></td>
+<td>p_perimeter</td>
+<td>Perimeter of the request element, i.e., the export polygon in WKT format</td>
+<td>Geographic</td>
+<td>Geometry</td>
+</tr>
+<tr>
+<td><code>surface</code></td>
+<td>p_surface</td>
+<td>p_surface of the request element</td>
+<td>Attribute</td>
+<td>Numeric</td>
+</tr>
+<tr>
+<td><code>parameters.xxx</code></td>
+<td>p_parameters.xxx</td>
+<td>Dynamic property of the request element. Replace xxx with the desired property (e.g. format, projection, etc.) depending on the import connector.</td>
+<td>Attribute</td>
+<td>Depending on the type of dynamic property: text or numeric</td>
+</tr>
+</tbody>
+</table>
+<h4 id="operators">Operators</h4>
+<p>Two types of operators are possible: attribute-based and geographic, depending on the property used.</p>
+<p>The table below contains a list of the attribute-based operators that can be used.</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Description/Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>The property is equal to the value</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>The property is different from the value</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>The property is greater than the value</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>The property is less than the value</td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>The property is greater than or equal to the value</td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>The property is less than or equal to the value</td>
+</tr>
+<tr>
+<td><code>IN</code></td>
+<td>The property is present in a list of values (specified in parentheses, separated by commas)</td>
+</tr>
+<tr>
+<td><code>NOT IN</code></td>
+<td>The property is not present in a list of values (specified in parentheses, separated by commas)</td>
+</tr>
+</tbody>
+</table>
+<p>The table below contains a list of the geographic-based operators that can be used.</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Description/Remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>intersects</code></td>
+<td>The geometry contained in the property intersects the geometry passed as a value</td>
+</tr>
+<tr>
+<td><code>contains</code></td>
+<td>The geometry contains the geometry passed as a value</td>
+</tr>
+<tr>
+<td><code>disjoint</code></td>
+<td>The geometry is completely disjoint from the geometry passed as a value</td>
+</tr>
+<tr>
+<td><code>equals</code></td>
+<td>The geometry is equal to the geometry passed as a value</td>
+</tr>
+<tr>
+<td><code>within</code></td>
+<td>The geometry is included in the geometry passed as a value</td>
+</tr>
+</tbody>
+</table>
+<h4 id="values">Values</h4>
+<p>Depending on the property and operator, values can be of three types.</p>
+<table>
+<thead>
+<tr>
+<th>Value Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Text</code></td>
+<td>Text to be enclosed in quotation marks</td>
+<td>"PDF"</td>
+</tr>
+<tr>
+<td><code>Numeric</code></td>
+<td>Number (integer or decimal)</td>
+<td>1234</td>
+</tr>
+<tr>
+<td><code>Geometry</code></td>
+<td>Geometry converted to WKT format not enclosed in quotation marks</td>
+<td>POLYGON((6.82 46.39,6.92 46.39,6.92 46.19,6.92 46.19,6.82 46.39))<br>LINESTRING(6.82 46.39, 6.92 46.39, 6.92 46.19)<br>POINT(6.82 46.39)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples">Examples</h4>
+<p>Some typical examples of rules:
+<div class="highlight"><pre><span></span><code>orderlabel == “92445” AND perimeter intersects POLYGON((6.82 46.39,6.92 46.39,6.92 46.19,6.92 46.19,6.82 46.39))
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>orderlabel == “92445” AND parameters.format == “PDF&quot;
+</code></pre></div>
+<h3 id="authentication">Authentication</h3>
+<p>There are two types of users:</p>
+<ul>
+<li>LOCAL: users whose Extract database is the authentication source.</li>
+<li>LDAP: users whose LDAP server is the authentication source.</li>
+</ul>
+<p>To log in, LDAP users must be part of an Extract Admin or Extract Operator group in the LDAP directory.</p>
+<p>If a user logs in to Extract with LDAP and is not present in the local database, they are created on the fly.</p>
+<p>Each time an LDAP user logs in, their information is updated (name, email, role).</p>
+<p><img alt="login-diagram" src="../../assets/dev-guide/login-diagram.jpg" width="900" /></p>
+<h3 id="google-authenticator-2fa-operation">Google Authenticator 2FA operation</h3>
+<h4 id="2fa-specific-connection-flow">2FA-specific connection flow</h4>
+<p><img alt="2fa-connection-flow" src="../../assets/dev-guide/2fa-connection-flow.png" width="700" /></p>
+<h4 id="2fa-parameters-modification-for-your-own-account">2FA parameters modification (for your own account)</h4>
+<p><img alt="2fa-parameters-own" src="../../assets/dev-guide/2fa-parameters-own.png" width="500" /></p>
+<h4 id="2fa-parameters-modification-of-a-user-by-an-administrator">2FA parameters modification (of a user by an administrator)</h4>
+<p><img alt="2fa-parameters-admin" src="../../assets/dev-guide/2fa-parameters-admin.png" width="400" /></p>
+<h3 id="ldap-synchronization">LDAP synchronization</h3>
+<p>It is possible to launch an LDAP synchronization (if LDAP authentication is enabled). This synchronization performs the following operations:</p>
+<ul>
+<li><strong>Creation</strong> of LDAP Users (accounts existing in the LDAP directory, not yet in the Extract database)</li>
+<li><strong>Updating</strong> the properties of existing LDAP users already in the Extract database (full name, email, role)</li>
+<li><strong>Deactivating</strong> LDAP users from the Extract database if they are deactivated or deleted from the LDAP directory</li>
+</ul>
+<p><img alt="ldap-synchro" src="../../assets/dev-guide/ldap-synchro.jpg" width="800" /></p>
+<p><br>
+<br>
+<br>
+<br>
+<br></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "search.suggest", "toc.integrate", "navigation.path", "content.code.copy"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
