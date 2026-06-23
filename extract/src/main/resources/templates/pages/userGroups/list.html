@@ -12,6 +12,11 @@
         <div id="wrapper">
             <div id="page-wrapper" layout:fragment="content">
                 <div class="btn-group float-end">
+                    <a class="btn btn-extract-white btn-md" href="../users"
+                       th:href="@{/users}">
+                        <i class="fa fa-user fa-fw"></i>
+                        <span th:text="#{userGroupsList.users.button}">{Users}</span>
+                    </a>
                     <a class="btn btn-extract-filled btn-md" href="add"
                        th:href="@{/userGroups/add}">
                         <i class="fa fa-plus fa-fw"></i>
