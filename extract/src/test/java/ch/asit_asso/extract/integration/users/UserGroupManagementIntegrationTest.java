@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -457,6 +458,18 @@ class UserGroupManagementIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("userGroups/list"))
                 .andExpect(model().attributeExists("userGroups"));
+        }
+
+        @Test
+        @DisplayName("5.1b - Group list shows a navigation button back to the users page (issue #355)")
+        @WithMockApplicationUser(username = "admin", userId = 2, role = "ADMIN")
+        void groupListShowsUsersNavigationButton() throws Exception {
+            mockMvc.perform(get("/userGroups"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("userGroups/list"))
+                // The white button is unique to this navigation link (not used in the layout/menu)
+                .andExpect(content().string(containsString("btn-extract-white")))
+                .andExpect(content().string(containsString("href=\"/users\"")));
         }
 
         @Test
