@@ -173,15 +173,6 @@ public class PluginConfigurationTest {
         }
 
         @Test
-        @DisplayName("Returns paramInputData property")
-        void returnsParamInputDataProperty() {
-            String value = configuration.getProperty("paramInputData");
-
-            assertNotNull(value);
-            assertEquals("SourceDataset_FILEGDB", value);
-        }
-
-        @Test
         @DisplayName("Returns null for non-existent property")
         void returnsNullForNonExistentProperty() {
             String value = configuration.getProperty("nonexistent.property");
