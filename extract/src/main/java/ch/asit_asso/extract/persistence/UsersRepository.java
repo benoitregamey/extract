@@ -16,11 +16,13 @@
  */
 package ch.asit_asso.extract.persistence;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import ch.asit_asso.extract.domain.Request;
 import ch.asit_asso.extract.domain.User;
 import ch.asit_asso.extract.domain.User.Profile;
+import ch.asit_asso.extract.utils.AlphabeticalOrder;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -59,6 +61,30 @@ public interface UsersRepository extends PagingAndSortingRepository<User, Intege
      * @return an array of users
      */
     User[] findAllApplicationUsers();
+
+
+
+    /**
+     * Obtains all the users that are allowed to log in, sorted by their name, ignoring the case and the
+     * accents.
+     *
+     * @return a list of users
+     */
+    default List<User> findAllActiveApplicationUsersSortedByName() {
+        return AlphabeticalOrder.sort(Arrays.asList(this.findAllActiveApplicationUsers()), User::getName);
+    }
+
+
+
+    /**
+     * Obtains all the users that are not system users, sorted by their name, ignoring the case and the
+     * accents.
+     *
+     * @return a list of users
+     */
+    default List<User> findAllApplicationUsersSortedByName() {
+        return AlphabeticalOrder.sort(Arrays.asList(this.findAllApplicationUsers()), User::getName);
+    }
 
 
 

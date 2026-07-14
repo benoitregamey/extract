@@ -18,6 +18,7 @@ package ch.asit_asso.extract.persistence;
 
 import java.util.List;
 import ch.asit_asso.extract.domain.Connector;
+import ch.asit_asso.extract.utils.AlphabeticalOrder;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 
@@ -29,11 +30,13 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface ConnectorsRepository extends PagingAndSortingRepository<Connector, Integer> {
 
     /**
-     * Fetches all the connectors that are currently active and sort them by their name.
+     * Fetches all the connectors and sorts them by their name, ignoring the case and the accents.
      *
      * @return a list that contain the connector data objects
      */
-    Iterable<Connector> findAllByOrderByName();
+    default List<Connector> findAllSortedByName() {
+        return AlphabeticalOrder.sort(this.findAll(), Connector::getName);
+    }
 
 
 

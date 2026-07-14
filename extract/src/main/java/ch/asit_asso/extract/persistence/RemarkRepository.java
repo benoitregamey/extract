@@ -1,7 +1,9 @@
 package ch.asit_asso.extract.persistence;
 
+import java.util.List;
 import ch.asit_asso.extract.domain.Process;
 import ch.asit_asso.extract.domain.Remark;
+import ch.asit_asso.extract.utils.AlphabeticalOrder;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -12,11 +14,14 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface RemarkRepository extends PagingAndSortingRepository<Remark, Integer> {
 
     /**
-     * Obtains all the predefined remarks in the data source and sorts them based on their title.
+     * Obtains all the predefined remarks in the data source and sorts them based on their title, ignoring
+     * the case and the accents.
      *
      * @return a collection of all the predefined remarks in the data source
      */
-    Iterable<Remark> findAllByOrderByTitle();
+    default List<Remark> findAllSortedByTitle() {
+        return AlphabeticalOrder.sort(this.findAll(), Remark::getTitle);
+    }
 
     /**
      * Obtains a predefined request based on its title.

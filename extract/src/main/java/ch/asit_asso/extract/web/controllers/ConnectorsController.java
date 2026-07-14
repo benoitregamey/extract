@@ -462,7 +462,7 @@ public class ConnectorsController extends BaseController {
     private ProcessModel[] getAllProcesses() {
         final List<ProcessModel> processesList = new ArrayList<>();
 
-        for (Process domainProcess : this.processesRepository.findAll()) {
+        for (Process domainProcess : this.processesRepository.findAllSortedByName()) {
 
             processesList.add(new ProcessModel(domainProcess.getId(), domainProcess.getName()));
         }

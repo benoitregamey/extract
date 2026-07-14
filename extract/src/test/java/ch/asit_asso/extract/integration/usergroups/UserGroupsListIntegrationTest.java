@@ -107,7 +107,7 @@ class UserGroupsListIntegrationTest {
             createAndSaveGroup("AAA First Group");
 
             // When
-            Collection<UserGroup> orderedGroups = userGroupsRepository.findAllByOrderByName();
+            Collection<UserGroup> orderedGroups = userGroupsRepository.findAllSortedByName();
 
             // Then
             assertNotNull(orderedGroups);

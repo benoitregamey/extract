@@ -17,9 +17,11 @@
 package ch.asit_asso.extract.persistence;
 
 import ch.asit_asso.extract.domain.UserGroup;
+import ch.asit_asso.extract.utils.AlphabeticalOrder;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -29,7 +31,14 @@ import java.util.Collection;
  */
 public interface UserGroupsRepository extends PagingAndSortingRepository<UserGroup, Integer> {
 
-    Collection<UserGroup> findAllByOrderByName();
+    /**
+     * Fetches all the user groups sorted by their name, ignoring the case and the accents.
+     *
+     * @return a collection that contains the user group data objects
+     */
+    default List<UserGroup> findAllSortedByName() {
+        return AlphabeticalOrder.sort(this.findAll(), UserGroup::getName);
+    }
 
 
     /**

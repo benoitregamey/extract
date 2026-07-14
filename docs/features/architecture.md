@@ -641,6 +641,29 @@ It is possible to launch an LDAP synchronization (if LDAP authentication is enab
 
 ![ldap-synchro](../assets/dev-guide/ldap-synchro.jpg){width="800"}
 
+### Alphabetical ordering of the lists
+
+Every list the user can browse (the drop-downs of the filters and of the forms, and the sortable columns
+of the tables) is ordered alphabetically while **ignoring both the case and the accents**: `beta` comes
+before `Zulu`, and `Ärgerlich` comes before `avenches` rather than after `Zurich`.
+
+That ordering is deliberately **not** delegated to the database. A SQL `ORDER BY` relies on the collation
+the PostgreSQL server was built with, and that collation differs from one Extract installation to another:
+a server built against the glibc sorts an accented letter next to its base letter, whereas a server built
+against musl has virtually no collation support and falls back to the byte order, which pushes every
+accented letter after `z`. The same list would then be ordered differently depending on the deployment.
+
+The ordering is therefore performed by the application, in two places that follow the same rule:
+
+| Layer | Component | Mechanism |
+| --- | --- | --- |
+| Server | ``ch.asit_asso.extract.utils.AlphabeticalOrder`` | A ``java.text.Collator`` with the ``PRIMARY`` strength, which treats a letter, its uppercase form and its accented forms as equal. The repositories expose the sorted lists through ``default`` methods (``findAllSortedByName()``, ``findAllSortedByTitle()``, ``findAllActiveApplicationUsersSortedByName()``), so that the controllers stay thin and every consumer of a given list gets the same order. |
+| Browser | ``datatableConfig.js``, ``connectorsList.js`` | ``localeCompare(..., { sensitivity: 'base' })``. The DataTables ``string`` and ``html`` ordering types are overridden once, in the shared configuration, so that every table of the application sorts like the drop-downs. |
+
+The lists concerned hold at most a few hundred entries, so sorting them in memory rather than in the
+database has no measurable cost. Sorting a list that could grow without bound would require a different
+approach (a paginated query, and an ordering the database can index).
+
 <br>
 <br>
 <br>

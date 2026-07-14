@@ -407,7 +407,7 @@ public class UserGroupsController extends BaseController {
                 }
             }
 
-            model.addAttribute("allactiveusers", this.usersRepository.findAllApplicationUsers());
+            model.addAttribute("allactiveusers", this.usersRepository.findAllApplicationUsersSortedByName());
             this.addCurrentSectionToModel(currentSection, model);
 
         } catch (Exception exception) {

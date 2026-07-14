@@ -169,8 +169,8 @@ public class IndexController extends BaseController {
         } else {
 
 
-            model.addAttribute("processes", this.processesRepository.findAllByOrderByName());
-            model.addAttribute("connectors", this.connectorsRepository.findAllByOrderByName());
+            model.addAttribute("processes", this.processesRepository.findAllSortedByName());
+            model.addAttribute("connectors", this.connectorsRepository.findAllSortedByName());
             model.addAttribute("refreshInterval",
                     Integer.valueOf(this.parametersRepository.getDashboardRefreshInterval()));
             model.addAttribute("tablePageSize", this.tablePageSize);
