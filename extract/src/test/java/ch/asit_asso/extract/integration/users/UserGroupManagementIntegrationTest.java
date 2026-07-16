@@ -490,7 +490,7 @@ class UserGroupManagementIntegrationTest {
             dbHelper.createTestUserGroup("Beta Group");
 
             // When: Fetching all groups sorted
-            List<UserGroup> groups = new ArrayList<>(userGroupsRepository.findAllByOrderByName());
+            List<UserGroup> groups = new ArrayList<>(userGroupsRepository.findAllSortedByName());
 
             // Then: Check that groups starting with these names are in correct order
             // (Note: there might be other groups from test data)

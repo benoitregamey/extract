@@ -53,7 +53,10 @@ $(function() {
             types.push(type);
         }
     });
-    types.sort();
+    // Case- and accent-insensitive alphabetical sort (default sort() is ASCII, uppercase first)
+    types.sort(function(a, b) {
+        return String(a).localeCompare(String(b), undefined, { sensitivity: 'base' });
+    });
     types.forEach(function(type) {
         $('#typeFilter').append('<option value="' + type + '">' + type + '</option>');
     });

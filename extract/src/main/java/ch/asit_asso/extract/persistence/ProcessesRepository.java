@@ -16,7 +16,9 @@
  */
 package ch.asit_asso.extract.persistence;
 
+import java.util.List;
 import ch.asit_asso.extract.domain.Process;
+import ch.asit_asso.extract.utils.AlphabeticalOrder;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -30,7 +32,14 @@ import org.springframework.data.repository.query.Param;
  */
 public interface ProcessesRepository extends PagingAndSortingRepository<Process, Integer> {
 
-    Iterable<Process> findAllByOrderByName();
+    /**
+     * Fetches all the processes sorted by their name, ignoring the case and the accents.
+     *
+     * @return a list that contains the process data objects
+     */
+    default List<Process> findAllSortedByName() {
+        return AlphabeticalOrder.sort(this.findAll(), Process::getName);
+    }
 
 
 

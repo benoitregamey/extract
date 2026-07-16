@@ -613,7 +613,7 @@ public class ProcessesController extends BaseController {
     private List<UserModel> getAllActiveUsers() {
         final List<UserModel> usersList = new ArrayList<>();
 
-        for (User domainUser : this.usersRepository.findAllActiveApplicationUsers()) {
+        for (User domainUser : this.usersRepository.findAllActiveApplicationUsersSortedByName()) {
 
             usersList.add(new UserModel(domainUser));
         }
@@ -624,7 +624,7 @@ public class ProcessesController extends BaseController {
 
 
     private Collection<UserGroup> getAllUserGroups() {
-        return this.userGroupsRepository.findAllByOrderByName();
+        return this.userGroupsRepository.findAllSortedByName();
     }
 
 
@@ -637,7 +637,7 @@ public class ProcessesController extends BaseController {
     private List<RemarkModel> getAllRemarks() {
         final List<RemarkModel> remarksList = new ArrayList<>();
 
-        for (Remark domainRemark : this.remarksRepository.findAllByOrderByTitle()) {
+        for (Remark domainRemark : this.remarksRepository.findAllSortedByTitle()) {
             remarksList.add(new RemarkModel(domainRemark, this.tasksRepository));
         }
 

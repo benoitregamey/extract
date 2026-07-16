@@ -1971,7 +1971,7 @@ public class RequestsController extends BaseController {
     private List<UserModel> getAllActiveUsers() {
         final List<UserModel> usersList = new ArrayList<>();
 
-        for (User domainUser : this.usersRepository.findAllActiveApplicationUsers()) {
+        for (User domainUser : this.usersRepository.findAllActiveApplicationUsersSortedByName()) {
 
             usersList.add(new UserModel(domainUser));
         }
@@ -1980,7 +1980,7 @@ public class RequestsController extends BaseController {
     }
     
     private Collection<UserGroup> getAllUserGroups() {
-        return this.userGroupsRepository.findAllByOrderByName();
+        return this.userGroupsRepository.findAllSortedByName();
     }
 
     public FeatureConfiguration getFeatures() {
