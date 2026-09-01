@@ -642,9 +642,16 @@ collides, and it is the one that was reported.
 Duplication itself is safe. ``ProcessesController.cloneProcess()`` copies the tasks with ``Task.createCopy()`` and
 writes them straight through the repository, without going through the form model at all.
 
-Anyone repairing tasks by hand must keep the sequence in mind: giving a row an identifier that
-``hibernate_sequence`` has not reached yet makes the next insertion fail on the primary key. Reuse a number that
-has already been consumed, or move the sequence past it.
+Anyone repairing rows by hand must keep the sequence in mind: giving a row an identifier that
+``hibernate_sequence`` has not reached yet makes the next insertion fail on the primary key, whatever the table it
+lands in. Reuse a number that has already been consumed, or move the sequence past the highest identifier of
+**every** table that draws from it, not only of the one being repaired.
+
+``sql/create_test_data.sql`` ends with that computation and is the reference for it: it takes the maximum of
+``users``, ``connectors``, ``processes``, ``tasks``, ``requests``, ``request_history``, ``usergroups``, ``rules``,
+``remarks``, ``recovery_codes`` and ``remember_me_tokens``, and hands the sequence the value that follows. A table
+left out of that list sets the sequence too low and breaks the next insertion in it, so the list has to grow with
+any new entity.
 
 ### Authentication
 

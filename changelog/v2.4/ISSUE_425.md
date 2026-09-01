@@ -109,8 +109,16 @@ plugin declares, or a process holding two tasks at the same position, is one of 
 
 Unchanged: the `tasks` table has to be fixed, as described in the issue. One trap to avoid, met while reproducing
 the bug. Every identifier of the application comes from the same `hibernate_sequence`; giving a repaired row an
-identifier that the sequence has not reached yet makes the next task creation fail on `tasks_pkey`. Reuse an
-identifier that has already been consumed, or move the sequence past the one that was used.
+identifier that the sequence has not reached yet makes the next insertion fail on the primary key, and not
+necessarily in `tasks`. Reuse an identifier that has already been consumed, or move the sequence past the highest
+identifier of **every** table that draws from it.
+
+`sql/create_test_data.sql` did that computation over six tables only, leaving out `usergroups`, `rules`,
+`remarks`, `recovery_codes` and `remember_me_tokens`. On a database where one of those holds the highest
+identifier, the seeded sequence was set below it and the next row written there failed on its primary key. The
+five tables are now part of the computation, each guarded by `to_regclass` so the script still runs on a schema
+that lacks one. The value handed to the sequence is unchanged in principle: the highest identifier plus one, taken
+across all of them.
 
 ### Documentation / i18n impact
 
