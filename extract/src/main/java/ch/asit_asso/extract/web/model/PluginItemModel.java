@@ -126,12 +126,25 @@ public abstract class PluginItemModel {
     /**
      * Defines the values of the non-standard parameters.
      *
-     * @param parametersValuesMap a map containing the parameters values
+     * The values come from the data source, where they may no longer fit what the plugin expects: a task whose
+     * parameters have been overwritten by those of another plugin keeps the values of that other plugin. Such a
+     * value is skipped rather than rejected, so that the item is displayed with an empty parameter that the
+     * administrator can fix, instead of making the whole page fail.
+     *
+     * @param parametersValuesMap a map containing the parameters values, which may be null
      */
     protected final void setParametersValuesFromMap(final Map<String, String> parametersValuesMap) {
+        final Map<String, String> valuesMap = (parametersValuesMap != null) ? parametersValuesMap : Map.of();
 
         for (PluginItemModelParameter parameter : this.getParameters()) {
-            parameter.updateValue(parametersValuesMap.get(parameter.getName()));
+
+            try {
+                parameter.updateValue(valuesMap.get(parameter.getName()));
+
+            } catch (IllegalArgumentException exception) {
+                this.logger.warn("The stored value of the parameter \"{}\" does not fit what the plugin expects."
+                        + " The parameter is left empty so that it can be set again.", parameter.getName());
+            }
         }
 
         this.logger.debug("The non-standard parameters values have been updated from a map.");

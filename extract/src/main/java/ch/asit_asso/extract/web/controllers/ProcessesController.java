@@ -288,6 +288,16 @@ public class ProcessesController extends BaseController {
                 return this.prepareModelForDetailsView(model, false);
             }
 
+            final Integer[] foreignTaskIds = processModel.getForeignTaskIds(domainProcess);
+
+            if (foreignTaskIds.length > 0) {
+                this.logger.error("Could not update the process {} because the submitted tasks {} are not its own."
+                        + " Nothing has been saved.", domainProcess.getId(), Arrays.toString(foreignTaskIds));
+                this.addStatusMessage(model, "processDetails.errors.task.foreign", MessageType.ERROR);
+
+                return this.prepareModelForDetailsView(model, false);
+            }
+
             this.saveProcessModifications(processModel, domainProcess);
             this.logger.info("Updating the process # {} has succeeded.", domainProcess.getId());
             this.addStatusMessage(redirectAttributes, "processesList.process.updated", MessageType.SUCCESS);
