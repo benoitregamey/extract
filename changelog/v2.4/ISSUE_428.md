@@ -70,39 +70,17 @@ due, and the unknown identifier answers 500. The fourth guards the tag path, whi
 
 ### Finding the installations that are already hit
 
-A connector that lost a rule reports nothing. Three read-only checks, run against a database where the corruption
-had been reproduced:
+A connector that lost a rule reports nothing, and neither does a task left with the settings of another plugin
+when that plugin has no mandatory parameter. An installation that has never answered a 500 can be affected all the
+same, so the data has to be looked at rather than waited for. Three traces to look for:
 
-```sql
--- 1. tasks sharing a position in the same process (issue #425 and this one leave that trace)
-SELECT id_process, position, count(*) AS nb,
-       string_agg(id_task::text || ':' || task_code, ', ') AS tasks
-FROM tasks GROUP BY id_process, position HAVING count(*) > 1 ORDER BY id_process, position;
+- two tasks sharing a position in the same process;
+- a task whose stored parameters are the ones another plugin expects;
+- a connector left without any rule.
 
--- 2. tasks holding the parameters of another plugin
-WITH keys AS (
-    SELECT t.id_task, t.task_code, t.id_process,
-           COALESCE((SELECT string_agg(k, ',' ORDER BY k)
-                     FROM jsonb_object_keys(t.task_params::jsonb) AS k), '') AS key_set
-    FROM tasks t WHERE t.task_params IS NOT NULL AND t.task_params <> ''
-), sets_per_plugin AS (
-    SELECT task_code, key_set, count(*) AS nb FROM keys WHERE key_set <> '' GROUP BY task_code, key_set
-), usual AS (
-    SELECT DISTINCT ON (task_code) task_code, key_set FROM sets_per_plugin ORDER BY task_code, nb DESC, key_set
-)
-SELECT k.id_task, k.id_process, k.task_code AS plugin, k.key_set AS stored_parameters,
-       u.task_code AS plugin_those_parameters_belong_to
-FROM keys k JOIN usual u ON u.key_set = k.key_set AND u.task_code <> k.task_code ORDER BY k.id_task;
-
--- 3. connectors left without any rule
-SELECT c.id_connector, c.name FROM connectors c
-LEFT JOIN rules r ON r.id_connector = c.id_connector
-GROUP BY c.id_connector, c.name HAVING count(r.id_rule) = 0 ORDER BY c.id_connector;
-```
-
-The second one reads what the plugins of the installation usually store, so it cannot decide anything about a
-plugin used by a single task in the whole database, and a connector that legitimately has no rule shows up in the
-third. Both are leads to look at, not verdicts.
+Read-only queries for those three checks are posted on the issue itself rather than shipped here: they read what
+the plugins of a given installation usually store, so they are leads to look at and not verdicts, and they belong
+to the operators running the repair, not to this fix.
 
 ### Documentation / i18n impact
 
