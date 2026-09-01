@@ -17,6 +17,7 @@
 package ch.asit_asso.extract.web.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 
@@ -178,26 +179,17 @@ public class ConnectorsController extends BaseController {
             return this.prepareModelForDetailsView(model, true);
         }
 
-        final Connector domainConnector = connectorModel.createDomainConnector();
+        final Integer[] foreignRuleIds = connectorModel.getForeignRuleIds();
 
-        //save rules
-        int position = 1;
+        if (foreignRuleIds.length > 0) {
+            this.logger.error("Could not create the connector because the submitted rules {} claim to exist"
+                    + " already. Nothing has been saved.", Arrays.toString(foreignRuleIds));
+            this.addStatusMessage(model, "connectorDetails.errors.rule.foreign", Message.MessageType.ERROR);
 
-        for (RuleModel ruleModel : connectorModel.getRules()) {
-            Rule domainRule = this.rulesRepository.findById(ruleModel.getId()).orElse(null);
-            Process domainProcess = null;
-
-            if (ruleModel.getProcessId() >= 0) {
-                domainProcess = this.processesRepository.findById(ruleModel.getProcessId()).orElse(null);
-            }
-
-            if (domainRule != null) {
-                ruleModel.updateDomainRule(domainRule, domainConnector, domainProcess);
-                domainRule.setPosition(position);
-            }
-
-            position++;
+            return this.prepareModelForDetailsView(model, true);
         }
+
+        final Connector domainConnector = connectorModel.createDomainConnector();
         this.connectorsRepository.save(domainConnector);
 
         this.addStatusMessage(redirectAttributes, "connectorsList.connector.added", Message.MessageType.SUCCESS);
@@ -242,6 +234,16 @@ public class ConnectorsController extends BaseController {
                     Message.MessageType.ERROR);
 
             return ConnectorsController.REDIRECT_TO_LIST;
+        }
+
+        final Integer[] foreignRuleIds = connectorModel.getForeignRuleIds(domainConnector);
+
+        if (foreignRuleIds.length > 0) {
+            this.logger.error("Could not update the connector {} because the submitted rules {} are not its own."
+                    + " Nothing has been saved.", domainConnector.getId(), Arrays.toString(foreignRuleIds));
+            this.addStatusMessage(model, "connectorDetails.errors.rule.foreign", Message.MessageType.ERROR);
+
+            return this.prepareModelForDetailsView(model, false);
         }
 
         connectorModel.updateDomainConnector(domainConnector);
@@ -585,14 +587,18 @@ public class ConnectorsController extends BaseController {
                             .orElse(null);
             Rule domainRule;
 
-            if (RuleModel.TAG_ADDED.equals(ruleModel.getTag())) {
+            if (ruleModel.isNew()) {
                 domainRule = ruleModel.createDomainRule(domainConnector, domainProcess);
                 domainRule.setPosition(ruleModel.getPosition());
             } else {
-                domainRule = this.rulesRepository.findById(ruleModel.getId())
-                    .orElseThrow(() -> {
-                        return new UnsupportedOperationException("Impossible to move a rule that does not exist");
-                    });
+                domainRule = ConnectorsController.findInConnector(domainConnector, ruleModel.getId());
+
+                if (domainRule == null) {
+                    throw new IllegalArgumentException(String.format(
+                            "The rule with identifier %d is not a rule of the connector with identifier %s.",
+                            ruleModel.getId(), domainConnector.getId()));
+                }
+
                 rulesToDelete.remove(domainRule);
                 ruleModel.updateDomainRule(domainRule, domainConnector, domainProcess);
                 domainRule.setPosition(ruleModel.getPosition());
@@ -603,6 +609,36 @@ public class ConnectorsController extends BaseController {
 
         domainConnector.getRulesCollection().removeAll(rulesToDelete);
         this.rulesRepository.deleteAll(rulesToDelete);
+    }
+
+
+
+    /**
+     * Obtains the data object of a rule among those of the connector being saved.
+     *
+     * The identifier that the form carries is either the temporary one of a rule that has just been added, or the
+     * one of a rule of another connector when the form has been tampered with or restored by the browser. Fetching
+     * it from the whole table would move that rule to the edited connector, overwrite its criteria and its target
+     * process, and leave its own connector without it (issue #428).
+     *
+     * @param domainConnector the data object of the connector being saved
+     * @param ruleId          the identifier carried by the submitted rule
+     * @return the rule data object, or <code>null</code> if it is not one of that connector's rules
+     */
+    private static Rule findInConnector(final Connector domainConnector, final int ruleId) {
+
+        if (domainConnector.getRulesCollection() == null) {
+            return null;
+        }
+
+        for (Rule domainRule : domainConnector.getRulesCollection()) {
+
+            if (domainRule.getId() != null && domainRule.getId() == ruleId) {
+                return domainRule;
+            }
+        }
+
+        return null;
     }
 
 }

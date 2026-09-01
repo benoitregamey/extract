@@ -574,11 +574,13 @@ public class ConnectorModel extends PluginItemModel {
 
 
     /**
-     * Provides a temporary identifier for a new rule. This only ensures that the new object has a unique
-     * identifier among the rules for this controller until it is saved. But this value should be ignored when this
-     * rule is persisted. The real identifier should be assigned by the regular means, e.g. database sequence.
+     * Provides a temporary identifier for a rule that has just been added.
      *
-     * @return a temporary identifier that is unique among the rules for this connector
+     * This only tells the new rule apart from the other rules of the form until it is saved. It is not the
+     * identifier of a row of the data source, and it may well be the one of a rule of another connector: what
+     * makes a rule new is its {@link RuleModel#TAG_ADDED} tag, never its identifier.
+     *
+     * @return an identifier that is unique among the rules of this connector
      */
     private int getTemporaryRuleId() {
         int maxRuleId = 0;
@@ -592,6 +594,91 @@ public class ConnectorModel extends PluginItemModel {
         }
 
         return maxRuleId + 1;
+    }
+
+
+
+    /**
+     * Obtains the identifiers of the submitted rules that are not rules of this connector.
+     *
+     * A rule that has just been added carries a temporary identifier, which is not looked at here. Any other
+     * identifier must be one of the rules that this connector holds in the data source. When it is not, the
+     * submitted data cannot be trusted: it has either been tampered with, or the browser has filled the form with
+     * a value belonging to another connector (issue #428).
+     *
+     * @param domainConnector the data object for this connector
+     * @return the identifiers that do not belong to this connector, empty if the submitted rules are consistent
+     */
+    public final Integer[] getForeignRuleIds(final Connector domainConnector) {
+
+        if (domainConnector == null) {
+            throw new IllegalArgumentException("The connector data object cannot be null.");
+        }
+
+        return this.getForeignRuleIds(domainConnector.getRulesCollection());
+    }
+
+
+
+    /**
+     * Obtains the identifiers of the submitted rules that cannot be, this connector not existing yet.
+     *
+     * A connector that is being created holds no rule, so no submitted rule can claim an identifier.
+     *
+     * @return the identifiers that no rule can carry here, empty if the submitted rules are consistent
+     */
+    public final Integer[] getForeignRuleIds() {
+        return this.getForeignRuleIds((Collection<Rule>) null);
+    }
+
+
+
+    /**
+     * Obtains the identifiers of the submitted rules that are none of the rules the connector holds.
+     *
+     * @param rulesInDataSource the rules that the connector holds, which may be null
+     * @return the identifiers that do not belong to the connector
+     */
+    private Integer[] getForeignRuleIds(final Collection<Rule> rulesInDataSource) {
+        final List<Integer> foreignRuleIds = new ArrayList<>();
+
+        for (RuleModel ruleModel : this.rules) {
+
+            if (ruleModel.isNew()) {
+                continue;
+            }
+
+            if (!ConnectorModel.containsRule(rulesInDataSource, ruleModel.getId())) {
+                foreignRuleIds.add(ruleModel.getId());
+            }
+        }
+
+        return foreignRuleIds.toArray(Integer[]::new);
+    }
+
+
+
+    /**
+     * Obtains whether a collection of rule data objects holds the one with a given identifier.
+     *
+     * @param domainRules the rule data objects to look into, which may be null
+     * @param ruleId      the identifier to look for
+     * @return <code>true</code> if one of those rules carries that identifier
+     */
+    private static boolean containsRule(final Collection<Rule> domainRules, final int ruleId) {
+
+        if (domainRules == null) {
+            return false;
+        }
+
+        for (Rule domainRule : domainRules) {
+
+            if (domainRule.getId() != null && domainRule.getId() == ruleId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
