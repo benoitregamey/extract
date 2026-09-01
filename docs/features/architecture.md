@@ -602,6 +602,35 @@ orderlabel == “92445” AND perimeter intersects POLYGON((6.82 46.39,6.92 46.3
 orderlabel == “92445” AND parameters.format == “PDF"
 ```
 
+### Saving the tasks of a process
+
+The tasks of a process are edited as blocks of a single form, and the whole form is posted back on every action:
+adding a task, deleting one and reordering them all go through a submission of the page. Each block carries the
+identifier of the task it stands for, in a hidden ``tasks[i].id`` field.
+
+That identifier is **not trustworthy**. A block that has just been added by "Ajouter une tâche" gets a temporary
+identifier from ``ProcessModel.getTemporaryTaskId()``, which is the highest identifier of the form plus one: it is
+only there to tell the blocks apart until they are saved, and it is very likely to be the identifier of a real task
+of another process. A browser restoring a form can also put a value of its own into a field of the same name, the
+forms of two processes being identical.
+
+Two rules follow, and any new code touching this form must keep them:
+
+* what makes a task new is its ``tag`` field, set to ``ADDED``, never its identifier. A task tagged this way is
+  always created, and it is saved with a null identifier so that the sequence assigns a real one;
+* a task that is not tagged is looked for **among the tasks of the edited process only**
+  (``TaskModel.saveInDataSource``), never in the whole table. An identifier that is none of them is refused:
+  ``ProcessesController`` checks the whole submission with ``ProcessModel.getForeignTaskIds()`` before writing
+  anything, so that a rejected form leaves the data source untouched.
+
+The rules of a connector are edited through the same mechanism, and ``ConnectorsController.updateConnectorRules()``
+does honour the ``ADDED`` tag, which is why the defect above never showed there. It still fetches an existing rule
+by its identifier alone, over the whole table: the second rule is **not** enforced on that side.
+
+Positions are not protected by a database constraint. The tasks are saved one after the other, each in its own
+transaction, so a reordering makes two tasks share a position for a moment; a unique constraint on
+``(id_process, position)`` would reject it.
+
 ### Authentication
 
 There are two types of users:
