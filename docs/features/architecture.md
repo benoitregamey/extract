@@ -631,6 +631,21 @@ Positions are not protected by a database constraint. The tasks are saved one af
 transaction, so a reordering makes two tasks share a position for a moment; a unique constraint on
 ``(id_process, position)`` would reject it.
 
+Every identifier of the application, whatever the table, comes from the same ``hibernate_sequence``. A task, a
+process, a request and a user therefore take their numbers from the same counter, which is why the identifier a
+form makes up lands on an existing row so easily, and on a row of any kind. Duplicating a process puts more rows
+in the range the original's form will make up from, since the copy takes the numbers that immediately follow those
+of the original: its process row first, then its tasks. Whether the made-up value falls on one of those tasks, on
+the copy's process row, or on nothing at all depends on the order the rows were written in. Only the first case
+collides, and it is the one that was reported.
+
+Duplication itself is safe. ``ProcessesController.cloneProcess()`` copies the tasks with ``Task.createCopy()`` and
+writes them straight through the repository, without going through the form model at all.
+
+Anyone repairing tasks by hand must keep the sequence in mind: giving a row an identifier that
+``hibernate_sequence`` has not reached yet makes the next insertion fail on the primary key. Reuse a number that
+has already been consumed, or move the sequence past it.
+
 ### Authentication
 
 There are two types of users:

@@ -96,14 +96,29 @@ was removed rather than kept as false evidence. That path is covered by the two 
 on a deployed instance: with the two tasks of a process holding the parameters of other plugins in the database,
 the processes list answers 200 and shows the parameters empty, where it answered 500 before.
 
+### Finding the installations that are already hit
+
+A corrupted task only takes the page down when its plugin has mandatory parameters, as the Python one has. When it
+has none, as the operator validation has, the task keeps working with the settings of another plugin and nothing
+is reported: the corruption is silent. An installation that has never answered a 500 can be affected all the same,
+so the tasks have to be looked at rather than waited for. A task whose stored parameters do not match the ones its
+plugin declares, or a process holding two tasks at the same position, is one of them.
+
+### Repairing by hand
+
+Unchanged: the `tasks` table has to be fixed, as described in the issue. One trap to avoid, met while reproducing
+the bug. Every identifier of the application comes from the same `hibernate_sequence`; giving a repaired row an
+identifier that the sequence has not reached yet makes the next task creation fail on `tasks_pkey`. Reuse an
+identifier that has already been consumed, or move the sequence past the one that was used.
+
 ### Documentation / i18n impact
 
 - i18n: one new key, `processDetails.errors.task.foreign`, in French, German and English.
 - `docs/features/architecture.md`: new "Saving the tasks of a process" subsection, which states the two rules to
   keep (the tag decides what is new, the lookup stays inside the process), what the connector rules do differently,
-  and why positions are not protected by a constraint.
-- Database: no migration. Repairing an installation that was hit still requires fixing the `tasks` table by hand,
-  as described in the issue.
+  why positions are not protected by a constraint, and what the shared sequence implies, both for the collision
+  itself and for anyone repairing rows by hand.
+- Database: no migration.
 
 ### Conclusion
 
