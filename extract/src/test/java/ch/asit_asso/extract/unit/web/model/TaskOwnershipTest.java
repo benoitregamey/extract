@@ -207,6 +207,31 @@ class TaskOwnershipTest {
 
             assertArrayEquals(new Integer[]{}, processModel.getForeignTaskIds(editedProcess));
         }
+
+
+
+        @Test
+        @DisplayName("2.4 - A task claiming an identifier is reported when the process is being created")
+        void aTaskWithAnIdentifierIsReportedOnCreation() {
+            final ProcessModel processModel = TaskOwnershipTest.this.processModel(0,
+                                                                                  TaskOwnershipTest.FOREIGN_TASK_ID);
+
+            assertArrayEquals(new Integer[]{TaskOwnershipTest.FOREIGN_TASK_ID}, processModel.getForeignTaskIds());
+        }
+
+
+
+        @Test
+        @DisplayName("2.5 - The tasks of a process being created are accepted when they are all new")
+        void addedTasksAreAcceptedOnCreation() {
+            final ProcessModel processModel = TaskOwnershipTest.this.processModel(0);
+            final TaskModel addedTask = TaskOwnershipTest.this.taskModel(ITaskProcessorStub.ARCHIVE);
+            addedTask.setTag(TaskModel.TAG_ADDED);
+            addedTask.setId(TaskOwnershipTest.FOREIGN_TASK_ID);
+            processModel.setTasks(new TaskModel[]{addedTask});
+
+            assertArrayEquals(new Integer[]{}, processModel.getForeignTaskIds());
+        }
     }
 
 

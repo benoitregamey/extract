@@ -47,7 +47,7 @@ process and adding any task to it is enough, since the temporary identifier of t
 | --- | --- |
 | `web/model/TaskModel.java` | `saveInDataSource()` no longer queries the whole table. A task tagged `ADDED` is always created, with a null identifier so that the sequence assigns a real one; any other task is looked for among the tasks of the process being saved only, and an identifier that is none of them is refused. |
 | `web/model/ProcessModel.java` | New `getForeignTaskIds()`, which reports the submitted identifiers that do not belong to the process. `getTemporaryRuleId()` renamed `getTemporaryTaskId()`, and its comment fixed: it described rules, and claimed the value was ignored on save, which was exactly the bug. |
-| `web/controllers/ProcessesController.java` | The submission is checked before anything is written, so a refused form leaves the data source exactly as it was. |
+| `web/controllers/ProcessesController.java` | The submission is checked before anything is written, when a process is updated **and** when one is created, so a refused form leaves the data source exactly as it was. Creating a process saves its row before its tasks, so without that check a submission claiming an identifier left an empty process behind and answered a 500. |
 | `web/model/PluginItemModel.java` | A stored value that no longer fits the plugin leaves the parameter empty and logs a warning, instead of throwing. A null map of values is accepted as well. |
 | `messages_fr/de/en.properties` | New key `processDetails.errors.task.foreign`. |
 
@@ -84,8 +84,9 @@ still be read. The test hands the foreign task to whoever fetches it by its iden
 lookup makes the test fail.
 
 `ProcessTaskOwnershipIntegrationTest` (new, integration) runs the real controller against PostgreSQL, and covers
-the save path only: the added task does not touch the other process and gets an identifier of its own, and a
-foreign identifier is refused with nothing written.
+the save path only: the added task does not touch the other process and gets an identifier of its own, a foreign
+identifier is refused with nothing written when a process is updated, and creating a process with a task claiming
+an identifier writes neither the process nor the task.
 
 Each of these tests was run against the unpatched code, and each fails there.
 

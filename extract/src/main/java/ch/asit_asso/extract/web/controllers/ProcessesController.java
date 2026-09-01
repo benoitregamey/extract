@@ -183,6 +183,16 @@ public class ProcessesController extends BaseController {
             return this.prepareModelForDetailsView(model, true);
         }
 
+        final Integer[] foreignTaskIds = processModel.getForeignTaskIds();
+
+        if (foreignTaskIds.length > 0) {
+            this.logger.error("Could not create the process because the submitted tasks {} claim to exist already."
+                    + " Nothing has been saved.", Arrays.toString(foreignTaskIds));
+            this.addStatusMessage(model, "processDetails.errors.task.foreign", MessageType.ERROR);
+
+            return this.prepareModelForDetailsView(model, true);
+        }
+
         processModel.createInDataSource(this.processesRepository, this.tasksRepository, this.usersRepository,
                                         this.userGroupsRepository);
 

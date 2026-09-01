@@ -489,7 +489,33 @@ public class ProcessModel extends OwnedObjectModel {
             throw new IllegalArgumentException("The process data object cannot be null.");
         }
 
-        final Collection<Task> tasksInDataSource = domainProcess.getTasksCollection();
+        return this.getForeignTaskIds(domainProcess.getTasksCollection());
+    }
+
+
+
+    /**
+     * Obtains the identifiers of the submitted tasks that cannot be, this process not existing yet.
+     *
+     * A process that is being created holds no task, so every submitted task must be a new one. One that claims an
+     * identifier is either a tampered submission or a form that the browser filled with a value of another process
+     * (issue #425).
+     *
+     * @return the identifiers that no task can carry here, empty if the submitted tasks are consistent
+     */
+    public final Integer[] getForeignTaskIds() {
+        return this.getForeignTaskIds((Collection<Task>) null);
+    }
+
+
+
+    /**
+     * Obtains the identifiers of the submitted tasks that are none of the tasks the process holds.
+     *
+     * @param tasksInDataSource the tasks that the process holds, which may be null
+     * @return the identifiers that do not belong to the process
+     */
+    private Integer[] getForeignTaskIds(final Collection<Task> tasksInDataSource) {
         final List<Integer> foreignTaskIds = new ArrayList<>();
 
         for (TaskModel taskModel : this.tasksList) {

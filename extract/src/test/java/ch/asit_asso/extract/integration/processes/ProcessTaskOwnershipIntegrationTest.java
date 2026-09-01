@@ -166,6 +166,31 @@ class ProcessTaskOwnershipIntegrationTest {
                                  .findByProcessOrderByPosition(editedProcess).length,
                          "Nothing must have been written for the edited process.");
         }
+
+
+
+        @Test
+        @DisplayName("2.2 - Creating a process with a task that claims an identifier writes nothing at all")
+        @WithMockApplicationUser(username = "admin", userId = 2, role = "ADMIN")
+        @Transactional
+        void aForeignTaskIdentifierIsRefusedOnCreation() throws Exception {
+            final Task otherTask = ProcessTaskOwnershipIntegrationTest.this.pythonTask();
+            final long processesBefore
+                    = ProcessTaskOwnershipIntegrationTest.this.processesRepository.count();
+
+            ProcessTaskOwnershipIntegrationTest.this.mockMvc.perform(
+                    ProcessTaskOwnershipIntegrationTest.this.createWithArchiveTask(otherTask.getId()))
+                                                            .andExpect(status().isOk());
+
+            assertEquals(processesBefore,
+                         ProcessTaskOwnershipIntegrationTest.this.processesRepository.count(),
+                         "No process must have been created.");
+            final Task reloadedOtherTask
+                    = ProcessTaskOwnershipIntegrationTest.this.tasksRepository.findById(otherTask.getId())
+                                                                             .orElseThrow();
+            assertEquals("python", reloadedOtherTask.getCode(), "The task of the other process changed plugin.");
+            assertEquals(1, reloadedOtherTask.getPosition(), "The task of the other process changed position.");
+        }
     }
 
 
@@ -237,6 +262,36 @@ class ProcessTaskOwnershipIntegrationTest {
                 .param("tasks[0].pluginLabel", "Archivage fichiers")
                 .param("tasks[0].pluginPictoClass", "fa-folder")
                 .param("tasks[0].tag", added ? "ADDED" : "")
+                .param("tasks[0].position", "1")
+                .param("tasks[0].parameters[0].name", "path")
+                .param("tasks[0].parameters[0].type", "text")
+                .param("tasks[0].parameters[0].label", "Chemin")
+                .param("tasks[0].parameters[0].required", "true")
+                .param("tasks[0].parameters[0].maxLength", "255")
+                .param("tasks[0].parameters[0].value", "/tmp/" + ProcessTaskOwnershipIntegrationTest.MARKER);
+    }
+
+
+
+    /**
+     * Builds the creation of a process holding a single archive task that claims a given identifier.
+     *
+     * @param taskId the identifier that the task block carries
+     * @return the request to perform
+     */
+    private MockHttpServletRequestBuilder createWithArchiveTask(final int taskId) {
+        return post("/processes/add").with(csrf())
+                .param("id", "0")
+                .param("name", ProcessTaskOwnershipIntegrationTest.MARKER + " created")
+                .param("readOnly", "false")
+                .param("htmlScrollY", "0")
+                .param("usersIds", String.valueOf(this.operatorId))
+                .param("userGroupsIds", "")
+                .param("tasks[0].id", String.valueOf(taskId))
+                .param("tasks[0].pluginCode", "ARCHIVE")
+                .param("tasks[0].pluginLabel", "Archivage fichiers")
+                .param("tasks[0].pluginPictoClass", "fa-folder")
+                .param("tasks[0].tag", "")
                 .param("tasks[0].position", "1")
                 .param("tasks[0].parameters[0].name", "path")
                 .param("tasks[0].parameters[0].type", "text")
