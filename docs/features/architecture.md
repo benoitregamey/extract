@@ -602,6 +602,35 @@ orderlabel == “92445” AND perimeter intersects POLYGON((6.82 46.39,6.92 46.3
 orderlabel == “92445” AND parameters.format == “PDF"
 ```
 
+#### Saving the rules
+
+The rules of a connector are edited as blocks of a single form, and the whole form is posted back on every action:
+adding a rule, deleting one and reordering them all go through a submission of the page. Each block carries the
+identifier of the rule it stands for, in a hidden ``rules[i].id`` field.
+
+That identifier is **not trustworthy**. A block that has just been added gets a temporary identifier from
+``ConnectorModel.getTemporaryRuleId()``, which is the highest identifier of the form plus one, and every entity of
+the application draws its identifiers from the same ``hibernate_sequence``: that made-up value lands on an
+existing row very easily. A browser restoring a form can also put a value of its own into a field of the same
+name, the forms of two connectors being identical.
+
+Two rules follow, and any new code touching this form must keep them:
+
+* what makes a rule new is its ``tag`` field, set to ``ADDED``, and nothing else. An identifier is deliberately
+  not enough: an untagged rule whose identifier is missing, negative or unknown is refused rather than created,
+  otherwise the check below could be walked around by sending an invalid identifier;
+* a rule that is not tagged is looked for **among the rules of the edited connector only**, never in the whole
+  table. An identifier that is none of them is refused: ``ConnectorsController`` checks the whole submission with
+  ``ConnectorModel.getForeignRuleIds()`` before writing anything, when a connector is updated and when one is
+  created, so that a rejected form leaves the data source untouched.
+
+Fetching a rule by its identifier alone did more damage than the same defect on the tasks side (issue #425):
+``RuleModel.updateDomainRule()`` sets the connector of the rule, so the rule was **moved** to the edited
+connector, and the rule of that connector which the block stood for was deleted as a leftover. The connector the
+rule came from lost it without any sign.
+
+The tasks of a process are edited through the same mechanism and follow the same two rules.
+
 ### Authentication
 
 There are two types of users:
