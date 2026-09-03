@@ -182,6 +182,26 @@ public class RuleModel {
 
 
     /**
+     * Obtains whether this rule has yet to be created in the data source.
+     *
+     * A rule that has just been added through the interface carries the identifier that the form gave it to tell
+     * it apart from the other blocks of the page. That identifier is not the one of a row of the data source, and
+     * it must never be used to fetch one (issue #428).
+     *
+     * The tag is the only thing that says so. An identifier is not enough to tell a new rule from an existing one,
+     * and it must not be: a submission carrying an untagged rule whose identifier is unknown, missing or negative
+     * has to be refused rather than turned into a new rule, or the check on the submitted identifiers could be
+     * walked around by sending an invalid one.
+     *
+     * @return <code>true</code> if this rule does not exist in the data source yet
+     */
+    public final boolean isNew() {
+        return RuleModel.TAG_ADDED.equals(this.getTag());
+    }
+
+
+
+    /**
      * Obtains the expression that the requests must match.
      *
      * @return the string expression

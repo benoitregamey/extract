@@ -55,7 +55,7 @@ public class RuleValidator extends BaseValidator {
         RuleModel rule = (RuleModel) target;
 
         if (rule.getProcessId() <= 0) {
-            errors.rejectValue("idProcess", "connectorDetails.errors.rule.process.undefined");
+            errors.rejectValue("processId", "connectorDetails.errors.rule.process.undefined");
         }
     }
 
