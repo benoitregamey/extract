@@ -189,8 +189,10 @@ ON CONFLICT (id_record) DO NOTHING;
 
 -- ==================== END TEST DATA FOR STANDBY REMINDERS ====================
 
--- Hibernate with hibernate.id.new_generator_mappings=true uses {entity_name}_seq pattern
--- We need to update both PostgreSQL SERIAL-style and Hibernate-style sequences
+-- Every entity of the application draws its identifier from the same hibernate_sequence, so the sequence has to
+-- be moved past the highest identifier of *all* of them. Leaving a table out sets it too low, and the next row
+-- written in that table fails on its primary key. Each max below is taken as "max + 1", which is the value the
+-- sequence must hand out next; nothing is added to it afterwards.
 DO $$
 DECLARE
     max_user_id INTEGER;
@@ -199,6 +201,12 @@ DECLARE
     max_task_id INTEGER;
     max_request_id INTEGER;
     max_history_id INTEGER;
+    max_usergroup_id INTEGER;
+    max_rule_id INTEGER;
+    max_remark_id INTEGER;
+    max_recovery_code_id INTEGER;
+    max_remember_me_id INTEGER;
+    next_shared_id INTEGER;
 BEGIN
     -- Get max IDs
     SELECT COALESCE(MAX(id_user), 0) + 1 INTO max_user_id FROM users;
@@ -207,6 +215,32 @@ BEGIN
     SELECT COALESCE(MAX(id_task), 0) + 1 INTO max_task_id FROM tasks;
     SELECT COALESCE(MAX(id_request), 0) + 1 INTO max_request_id FROM requests;
     SELECT COALESCE(MAX(id_record), 0) + 1 INTO max_history_id FROM request_history;
+
+    max_usergroup_id := 1;
+    max_rule_id := 1;
+    max_remark_id := 1;
+    max_recovery_code_id := 1;
+    max_remember_me_id := 1;
+
+    IF to_regclass('public.usergroups') IS NOT NULL THEN
+        SELECT COALESCE(MAX(id_usergroup), 0) + 1 INTO max_usergroup_id FROM usergroups;
+    END IF;
+    IF to_regclass('public.rules') IS NOT NULL THEN
+        SELECT COALESCE(MAX(id_rule), 0) + 1 INTO max_rule_id FROM rules;
+    END IF;
+    IF to_regclass('public.remarks') IS NOT NULL THEN
+        SELECT COALESCE(MAX(id_remark), 0) + 1 INTO max_remark_id FROM remarks;
+    END IF;
+    IF to_regclass('public.recovery_codes') IS NOT NULL THEN
+        SELECT COALESCE(MAX(id_code), 0) + 1 INTO max_recovery_code_id FROM recovery_codes;
+    END IF;
+    IF to_regclass('public.remember_me_tokens') IS NOT NULL THEN
+        SELECT COALESCE(MAX(id_code), 0) + 1 INTO max_remember_me_id FROM remember_me_tokens;
+    END IF;
+
+    next_shared_id := GREATEST(max_user_id, max_connector_id, max_process_id, max_task_id, max_request_id,
+                               max_history_id, max_usergroup_id, max_rule_id, max_remark_id, max_recovery_code_id,
+                               max_remember_me_id);
 
     -- Update PostgreSQL SERIAL-style sequences (if they exist)
     IF EXISTS (SELECT 1 FROM pg_sequences WHERE sequencename = 'users_id_user_seq') THEN
@@ -250,7 +284,7 @@ BEGIN
 
     -- Also check for hibernate_sequence (shared sequence in some configurations)
     IF EXISTS (SELECT 1 FROM pg_sequences WHERE sequencename = 'hibernate_sequence') THEN
-        PERFORM setval('hibernate_sequence', GREATEST(max_user_id, max_connector_id, max_process_id, max_task_id, max_request_id, max_history_id), false);
+        PERFORM setval('hibernate_sequence', next_shared_id, false);
     END IF;
 END
 $$;

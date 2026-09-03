@@ -212,7 +212,7 @@ public class ProcessModel extends OwnedObjectModel {
         }
         taskToAdd.setPosition(this.tasksList.size() + 1);
         if (TaskModel.TAG_ADDED.equals(taskToAdd.getTag())) {
-            taskToAdd.setId(this.getTemporaryRuleId());
+            taskToAdd.setId(this.getTemporaryTaskId());
         }
         this.logger.debug("Adding a task (ID: {}) at position {}.", taskToAdd.getId(), taskToAdd.getPosition());
 
@@ -222,19 +222,21 @@ public class ProcessModel extends OwnedObjectModel {
 
 
     /**
-     * Provides a temporary identifier for a new rule. This only ensures that the new object has a unique
-     * identifier among the rules for this controller until it is saved. But this value should be ignored when this
-     * rule is persisted. The real identifier should be assigned by the regular means, e.g. database sequence.
+     * Provides a temporary identifier for a task that has just been added.
      *
-     * @return a temporary identifier that is unique among the rules for this connector
+     * This only tells the new task apart from the other tasks of the form until it is saved. It is not the
+     * identifier of a row of the data source, and it may well be the one of a task of another process: what makes
+     * a task new is its {@link TaskModel#TAG_ADDED} tag, never its identifier.
+     *
+     * @return an identifier that is unique among the tasks of this process
      */
-    private int getTemporaryRuleId() {
+    private int getTemporaryTaskId() {
         int maxTaskId = 0;
 
         for (TaskModel task : this.tasksList) {
-            int taskId = task.getId();
+            Integer taskId = task.getId();
 
-            if (taskId > maxTaskId) {
+            if (taskId != null && taskId > maxTaskId) {
                 maxTaskId = taskId;
             }
         }
@@ -466,6 +468,93 @@ public class ProcessModel extends OwnedObjectModel {
         }
 
         return deletedTasks.toArray(Task[]::new);
+    }
+
+
+
+    /**
+     * Obtains the identifiers of the submitted tasks that are not tasks of this process.
+     *
+     * A task that has just been added carries a temporary identifier, which is not looked at here. Any other
+     * identifier must be one of the tasks that this process holds in the data source. When it is not, the
+     * submitted data cannot be trusted: it has either been tampered with, or the browser has filled the form with
+     * a value belonging to another process (issue #425).
+     *
+     * @param domainProcess the data object for this process
+     * @return the identifiers that do not belong to this process, empty if the submitted tasks are consistent
+     */
+    public final Integer[] getForeignTaskIds(final Process domainProcess) {
+
+        if (domainProcess == null) {
+            throw new IllegalArgumentException("The process data object cannot be null.");
+        }
+
+        return this.getForeignTaskIds(domainProcess.getTasksCollection());
+    }
+
+
+
+    /**
+     * Obtains the identifiers of the submitted tasks that cannot be, this process not existing yet.
+     *
+     * A process that is being created holds no task, so every submitted task must be a new one. One that claims an
+     * identifier is either a tampered submission or a form that the browser filled with a value of another process
+     * (issue #425).
+     *
+     * @return the identifiers that no task can carry here, empty if the submitted tasks are consistent
+     */
+    public final Integer[] getForeignTaskIds() {
+        return this.getForeignTaskIds((Collection<Task>) null);
+    }
+
+
+
+    /**
+     * Obtains the identifiers of the submitted tasks that are none of the tasks the process holds.
+     *
+     * @param tasksInDataSource the tasks that the process holds, which may be null
+     * @return the identifiers that do not belong to the process
+     */
+    private Integer[] getForeignTaskIds(final Collection<Task> tasksInDataSource) {
+        final List<Integer> foreignTaskIds = new ArrayList<>();
+
+        for (TaskModel taskModel : this.tasksList) {
+
+            if (taskModel.isNew()) {
+                continue;
+            }
+
+            if (!ProcessModel.containsTask(tasksInDataSource, taskModel.getId())) {
+                foreignTaskIds.add(taskModel.getId());
+            }
+        }
+
+        return foreignTaskIds.toArray(Integer[]::new);
+    }
+
+
+
+    /**
+     * Obtains whether a collection of task data objects holds the one with a given identifier.
+     *
+     * @param domainTasks the task data objects to look into, which may be null
+     * @param taskId      the identifier to look for
+     * @return <code>true</code> if one of those tasks carries that identifier
+     */
+    private static boolean containsTask(final Collection<Task> domainTasks, final Integer taskId) {
+
+        if (domainTasks == null) {
+            return false;
+        }
+
+        for (Task domainTask : domainTasks) {
+
+            if (Objects.equals(domainTask.getId(), taskId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

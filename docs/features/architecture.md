@@ -630,6 +630,56 @@ connector, and the rule of that connector which the block stood for was deleted 
 rule came from lost it without any sign.
 
 The tasks of a process are edited through the same mechanism and follow the same two rules.
+### Saving the tasks of a process
+
+The tasks of a process are edited as blocks of a single form, and the whole form is posted back on every action:
+adding a task, deleting one and reordering them all go through a submission of the page. Each block carries the
+identifier of the task it stands for, in a hidden ``tasks[i].id`` field.
+
+That identifier is **not trustworthy**. A block that has just been added by "Ajouter une tâche" gets a temporary
+identifier from ``ProcessModel.getTemporaryTaskId()``, which is the highest identifier of the form plus one: it is
+only there to tell the blocks apart until they are saved, and it is very likely to be the identifier of a real task
+of another process. A browser restoring a form can also put a value of its own into a field of the same name, the
+forms of two processes being identical.
+
+Two rules follow, and any new code touching this form must keep them:
+
+* what makes a task new is its ``tag`` field, set to ``ADDED``, never its identifier. A task tagged this way is
+  always created, and it is saved with a null identifier so that the sequence assigns a real one;
+* a task that is not tagged is looked for **among the tasks of the edited process only**
+  (``TaskModel.saveInDataSource``), never in the whole table. An identifier that is none of them is refused:
+  ``ProcessesController`` checks the whole submission with ``ProcessModel.getForeignTaskIds()`` before writing
+  anything, so that a rejected form leaves the data source untouched.
+
+The rules of a connector are edited through the same mechanism, and ``ConnectorsController.updateConnectorRules()``
+does honour the ``ADDED`` tag, which is why the defect above never showed there. It still fetches an existing rule
+by its identifier alone, over the whole table: the second rule is **not** enforced on that side.
+
+Positions are not protected by a database constraint. The tasks are saved one after the other, each in its own
+transaction, so a reordering makes two tasks share a position for a moment; a unique constraint on
+``(id_process, position)`` would reject it.
+
+Every identifier of the application, whatever the table, comes from the same ``hibernate_sequence``. A task, a
+process, a request and a user therefore take their numbers from the same counter, which is why the identifier a
+form makes up lands on an existing row so easily, and on a row of any kind. Duplicating a process puts more rows
+in the range the original's form will make up from, since the copy takes the numbers that immediately follow those
+of the original: its process row first, then its tasks. Whether the made-up value falls on one of those tasks, on
+the copy's process row, or on nothing at all depends on the order the rows were written in. Only the first case
+collides, and it is the one that was reported.
+
+Duplication itself is safe. ``ProcessesController.cloneProcess()`` copies the tasks with ``Task.createCopy()`` and
+writes them straight through the repository, without going through the form model at all.
+
+Anyone repairing rows by hand must keep the sequence in mind: giving a row an identifier that
+``hibernate_sequence`` has not reached yet makes the next insertion fail on the primary key, whatever the table it
+lands in. Reuse a number that has already been consumed, or move the sequence past the highest identifier of
+**every** table that draws from it, not only of the one being repaired.
+
+``sql/create_test_data.sql`` ends with that computation and is the reference for it: it takes the maximum of
+``users``, ``connectors``, ``processes``, ``tasks``, ``requests``, ``request_history``, ``usergroups``, ``rules``,
+``remarks``, ``recovery_codes`` and ``remember_me_tokens``, and hands the sequence the value that follows. A table
+left out of that list sets the sequence too low and breaks the next insertion in it, so the list has to grow with
+any new entity.
 
 ### Authentication
 

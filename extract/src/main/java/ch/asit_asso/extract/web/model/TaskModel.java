@@ -17,6 +17,7 @@
 package ch.asit_asso.extract.web.model;
 
 import java.util.Arrays;
+import java.util.Objects;
 import ch.asit_asso.extract.domain.Process;
 import ch.asit_asso.extract.domain.Task;
 import ch.asit_asso.extract.persistence.TasksRepository;
@@ -275,7 +276,7 @@ public class TaskModel extends PluginItemModel {
      */
     public final Task createDomainTask(final Process process) {
         final Task domainTask = new Task();
-        domainTask.setId(this.getId());
+        domainTask.setId(this.isNew() ? null : this.getId());
         domainTask.setCode(this.getPluginCode());
         domainTask.setLabel(this.getPluginLabel());
 
@@ -284,6 +285,21 @@ public class TaskModel extends PluginItemModel {
         }
 
         return this.updateDomainTask(domainTask);
+    }
+
+
+
+    /**
+     * Obtains whether this task has yet to be created in the data source.
+     *
+     * A task that has just been added through the interface carries the identifier that the form gave it to tell
+     * it apart from the other blocks of the page. That identifier is not the one of a row of the data source, and
+     * it must never be used to fetch one.
+     *
+     * @return <code>true</code> if this task does not exist in the data source yet
+     */
+    public final boolean isNew() {
+        return TaskModel.TAG_ADDED.equals(this.getTag()) || this.getId() == null;
     }
 
 
@@ -312,14 +328,37 @@ public class TaskModel extends PluginItemModel {
 
 
 
+    /**
+     * Reports the current values of this task in the data source.
+     *
+     * The task to update is looked for among the tasks of the process being saved, and nowhere else. The
+     * identifier that the form carries is either the temporary one of a task that has just been added, or the one
+     * of a task of another process when the form has been tampered with or restored by the browser. Fetching it
+     * from the whole table would overwrite the position and the parameters of a task that this process has no
+     * business touching, and leave it attached to its own process (issue #425). An identifier that is none of
+     * this process's tasks is therefore refused rather than turned into a new task, so that a caller that skipped
+     * {@link ProcessModel#getForeignTaskIds(Process)} cannot write anything unexpected either.
+     *
+     * @param taskRepository the link between the task data objects and the data source
+     * @param domainProcess  the data object of the process that this task is part of
+     * @return the saved task data object
+     */
     public final Task saveInDataSource(final TasksRepository taskRepository,
             final Process domainProcess) {
-        Task domainTask = taskRepository.findById(this.getId()).orElse(null);
+        Task domainTask;
 
-        if (domainTask == null) {
+        if (this.isNew()) {
             domainTask = this.createDomainTask(domainProcess);
 
         } else {
+            domainTask = this.findInProcess(domainProcess);
+
+            if (domainTask == null) {
+                throw new IllegalArgumentException(String.format(
+                        "The task with identifier %s is not a task of the process with identifier %s.", this.getId(),
+                        (domainProcess != null) ? domainProcess.getId() : null));
+            }
+
             this.updateDomainTask(domainTask);
         }
 
@@ -330,6 +369,30 @@ public class TaskModel extends PluginItemModel {
         }
 
         return domainTask;
+    }
+
+
+
+    /**
+     * Obtains the data object of this task among those of the process that it is part of.
+     *
+     * @param domainProcess the data object of the process being saved
+     * @return the task data object, or <code>null</code> if it is not one of that process's tasks
+     */
+    private Task findInProcess(final Process domainProcess) {
+
+        if (domainProcess == null || domainProcess.getTasksCollection() == null) {
+            return null;
+        }
+
+        for (Task domainTask : domainProcess.getTasksCollection()) {
+
+            if (Objects.equals(domainTask.getId(), this.getId())) {
+                return domainTask;
+            }
+        }
+
+        return null;
     }
 
 
