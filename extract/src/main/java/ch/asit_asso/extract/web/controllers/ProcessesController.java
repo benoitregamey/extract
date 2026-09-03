@@ -183,6 +183,16 @@ public class ProcessesController extends BaseController {
             return this.prepareModelForDetailsView(model, true);
         }
 
+        final Integer[] foreignTaskIds = processModel.getForeignTaskIds();
+
+        if (foreignTaskIds.length > 0) {
+            this.logger.error("Could not create the process because the submitted tasks {} claim to exist already."
+                    + " Nothing has been saved.", Arrays.toString(foreignTaskIds));
+            this.addStatusMessage(model, "processDetails.errors.task.foreign", MessageType.ERROR);
+
+            return this.prepareModelForDetailsView(model, true);
+        }
+
         processModel.createInDataSource(this.processesRepository, this.tasksRepository, this.usersRepository,
                                         this.userGroupsRepository);
 
@@ -285,6 +295,16 @@ public class ProcessesController extends BaseController {
                 this.logger.error("Could not update the process because at least one if its associated requests is"
                         + " still ongoing.");
                 this.addStatusMessage(model, "processDetails.errors.request.ongoing", MessageType.ERROR);
+                return this.prepareModelForDetailsView(model, false);
+            }
+
+            final Integer[] foreignTaskIds = processModel.getForeignTaskIds(domainProcess);
+
+            if (foreignTaskIds.length > 0) {
+                this.logger.error("Could not update the process {} because the submitted tasks {} are not its own."
+                        + " Nothing has been saved.", domainProcess.getId(), Arrays.toString(foreignTaskIds));
+                this.addStatusMessage(model, "processDetails.errors.task.foreign", MessageType.ERROR);
+
                 return this.prepareModelForDetailsView(model, false);
             }
 
